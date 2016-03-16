@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>My day</title>
+    <meta name='viewport' content='width=device-width'>
+    
+    <link rel="stylesheet" href="css/reset.css">
+
+    
+<style>
+    
+/* NOTE: Menu*/
+@import url(http://fonts.googleapis.com/css?family=Roboto:100);
+
+html {
+    min-height:100%;
+}
+
+body {
+    font-family:'HelveticaNeue-Light', Roboto;
+    background: #121a1d; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #121a1d 0%, #1abc9c 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#121a1d), color-stop(100%,#1abc9c)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg,  #121a1d 0%,#1abc9c 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg,  #121a1d 0%,#1abc9c 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg,  #121a1d 0%,#1abc9c 100%); /* IE10+ */
+    background: linear-gradient(135deg,  #121a1d 0%,#1abc9c 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121a1d', endColorstr='#1abc9c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    color:#fff;
+}
+input[id*="nav"] {
+    z-index:1;
+    position:absolute;
+    left:-45px;
+    width:0;
+    height:0;
+    padding:0;
+    margin:0;
+    border:1px solid red;
+    cursor:pointer;
+}
+input[id*="nav"]:after {
+    width:25px;
+    height:25px;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1319/nav-icon-on_2.svg);
+    background-repeat:no-repeat;
+    background-size:25px;
+    content:"";
+    transform:translateX(55px) translateY(10px);
+    position:absolute;
+}
+input[id*="nav"]:checked ~ navigation a {
+    pointer-events: auto;
+}
+
+navigation {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:45px;
+    background:#222;
+    opacity:0;
+    transition:.3s;
+    text-align:right;
+    box-shadow:0 1px 4px rgba(0,0,0,.6);
+}
+navigation a {
+    color:#fff;
+    text-decoration:none;
+    font-size:15px;
+    margin-right:20px;
+    user-select:none;
+    position:relative;
+    margin-top:17px;
+    display:inline-block;
+    pointer-events: none;
+    margin-left:-5px;
+}
+input[id*="nav"]:checked ~ navigation {
+    opacity:1;
+}
+content {
+    display:block;
+    padding: 13% 15% 0 15%;
+/*    width:100%*/
+/*    margin:0 35%;*/
+}
+navigation a:after {
+    content:"";
+    height:2px;
+    width:100%;
+    position:absolute;
+    background:#fff;
+    top:20px;
+    left:50%;
+    margin-left:-50%;
+    transform:rotateY(90deg);
+    transition:.3s;
+}
+navigation a:hover:after {
+    transform:rotateY(0deg);
+}
+  
+/*-------------------------------*/
+@media all and (max-width:380px) {
+    navigation {
+        height:auto;
+    }
+    navigation a {
+        display:block;
+        text-align:center;
+        margin:0;
+        padding:14px 0;
+    }
+    navigation a:after {
+        top:40px;
+    }
+    content {
+        font-size:32px;
+        padding:50px 35px;
+    }
+}
+  
+
+/* NOTE: My day*/   
+.intro {
+    font-size: 30px;
+    position: absolute;
+    top: 60px;
+    left: 140px;
+    color: #fff;
+}
+.intro span {
+    font-size: 15px;
+    color: #00ffd4;
+}
+
+ul {
+    user-select: none;
+}
+ul .name {
+    width: 85px;
+    height: 20px;
+    line-height: 20px;
+    text-align: right;
+    padding-right: 5px;
+    margin-right: 5px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    color: #ffffff;
+    float: left;
+    cursor: default;
+    font-size: 12px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    transition: .3s;
+    border-radius: 2px;
+}
+ul input:hover {
+    background: #333333 !important;
+    cursor: auto !important;
+}
+
+.timeline {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 14px;
+}
+.timeline li {
+    display: block;
+    float: left;
+    width: 27px;
+    height: 20px;
+    background: #fd3e81;
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 3px;
+    user-select: none;
+    cursor: default;
+    border-radius: 2px;
+}
+
+.thing {
+    width: 100%;
+    margin: 0 auto;
+    height: 20px;
+    margin-bottom: 4px;
+    animation: load .5s ease-in;
+}
+.thing li {
+    display: block;
+    float: left;
+    width: 7px;
+    height: 20px;
+    background: #333333;
+    text-align: center;
+    margin-right: 0px;
+    border-right: 3px solid #1d1e20;
+    cursor: pointer;
+    border-radius: 0px;
+    transition: .3s;
+}
+.thing li:hover {
+    opacity: .5;
+}
+.thing .remove {
+    color: #ffffff;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+    margin-left: 5px;
+    background: #fd3e81;
+    display: block;
+    float: left;
+    border-radius: 2px;
+    opacity: .2;
+    transition: .3s;
+    user-select: none;
+}
+.thing .remove:hover {
+    opacity: 1;
+}
+
+@keyframes load {
+    from {
+        opacity: 0;
+    }
+}
+.template {
+    display: none;
+}
+
+.addThing {
+    color: #ffffff;
+    font-size: 12px;
+    width: 716px;
+    transition: .3s;
+    margin-left: 100px;
+    text-align: center;
+    border-radius: 2px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.addThing:hover {
+    background: #333333;
+}
+
+</style>
+
+    
+    <script src="js/prefixfree.min.js"></script>
+
+    
+</head>
+
+<body>
+
+    <input type="checkbox" id="nav">
+    <navigation>
+        <a href="/index.html">Start</a>
+        <a href="/my_day.html">My day</a>
+        <a href="">My economy</a>
+        <a href="">My notes</a>
+        <a href="">Links</a>
+    </navigation>
+    
+    <content>
+    
+        <h1 class="intro">My day - time</h1>
+
+        <ul class="timeline">
+            <div class="name">Hours</div>
+            <li>00</li>
+            <li>01</li>
+            <li>02</li>
+            <li>03</li>
+            <li>04</li>
+            <li>05</li>
+            <li>06</li>
+            <li>07</li>
+            <li>08</li>
+            <li>09</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+        </ul>
+        <ul class="thing template">
+            <input type="text" class="name" value="Example">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <div class="remove">Remove</div>
+        </ul>
+
+        <div class="things">
+            <ul class="thing" value="#2AD33F">
+                <input type="text" class="name" value="Sleeping">
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <li class="active" style="background: rgb(42, 211, 63);"></li>
+                <div class="remove">Remove</div>
+            </ul>
+
+            <ul class="thing" value="#EDF11A">
+                <input type="text" class="name" value="Travel">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(237, 241, 26);"></li>
+                <li class="active" style="background: rgb(237, 241, 26);"></li>
+                <li class="active" style="background: rgb(237, 241, 26);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(237, 241, 26);"></li>
+                <li class="active" style="background: rgb(237, 241, 26);"></li>
+                <li class="active" style="background: rgb(237, 241, 26);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <div class="remove">Remove</div>
+            </ul>
+            <ul class="thing" value="#D3412A">
+                <input type="text" class="name" value="Working">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li class="active" style="background: rgb(211, 65, 42);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <div class="remove">Remove</div>
+            </ul>
+            <ul class="thing" value="#2D69E2">
+                <input type="text" class="name" value="Eating">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li class="active" style="background: rgb(45, 105, 226);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <div class="remove">Remove</div>
+            </ul>
+            <ul class="thing" value="#D32AD1">
+                <input type="text" class="name" value="Leisure">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li class="" style="background: rgb(51, 51, 51);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li class="active" style="background: rgb(211, 42, 209);"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <div class="remove">Remove</div>
+            </ul>
+            
+        </div>
+
+        <div class="addThing">
+            Add new thing +
+        </div>
+    
+    </content>
+  
+    
+
+<!-- No more markup needed :D -->
+<!--    <script src='https://raw.github.com/ftlabs/fastclick/master/lib/fastclick.js'></script>-->
+    
+<!-- NOTE: My date -->
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="js/index-my_day.js"></script>
+  
+</body>
+</html>
