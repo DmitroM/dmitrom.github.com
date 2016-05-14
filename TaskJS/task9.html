@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>Task9</title>
+
+	<style type="text/css">
+		.description {
+
+		}
+	</style>
+</head>
+<body>
+	<div class="description">
+		<h2>Слияние строк</h2>
+		<p>
+			Даны две строки, состоящие из точек, цифр и латинских букв. Точка означает пустоту.Нужно посимвольно объединить эти строки, по следующим правилам:
+			<ul>
+				<li>Если в обеих строках в данной позиции точка, то результат точка.</li>
+				<li>Если только в одной из строк в данной позиции не точка, то результат – этот символ.</li>
+				<li>Если в обеих строках в данной позиции не точка, то результат – символ из второй строки.</li>
+				<li>Если одна из строк длиннее, то её хвост добавляется к результату.</li>
+			</ul>
+		</p>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = function() {
+			// mergerStr("a....b", "..c...");
+			// mergerStr("aaaaaa", "bbbbbb");
+			// mergerStr("ab.ab.", "b.b.b.");
+			mergerStr("a.......b", "c");
+			// mergerStr("c", "a....b");
+		};
+
+		function mergerStr(str1, str2) {
+				// разбиваем на массив
+			var arrStr1 = String(str1).split(''),
+				arrStr2 = String(str2).split(''),
+				// результирующая строка
+				resultStr = '';
+
+			// если обе строки равны по длине
+			if (arrStr1.length == arrStr2.length) {
+				for (var i = 0; i < arrStr1.length; i++) {
+					if (arrStr1[i] != '.' && arrStr2[i] == '.') {
+						resultStr = resultStr + arrStr1[i];
+					}
+
+					if (arrStr1[i] != '.' && arrStr2[i] != '.') {
+						resultStr = resultStr + arrStr2[i];
+					}
+
+					if (arrStr1[i] == '.' && arrStr2[i] == '.') {
+						resultStr = resultStr + arrStr2[i];
+					}
+
+					if (arrStr1[i] == '.' && arrStr2[i] != '.') {
+						resultStr = resultStr + arrStr2[i];
+					}					
+				};
+			} else {
+				// если первая строка больше
+				if (arrStr1.length > arrStr2.length) {
+					for (var i = 0; i < arrStr2.length; i++) {
+						if (arrStr1[i] != '.' && arrStr2[i] == '.') {
+							resultStr = resultStr + arrStr1[i];
+						}
+
+						if (arrStr1[i] != '.' && arrStr2[i] != '.') {
+							resultStr = resultStr + arrStr2[i];
+						}
+
+						if (arrStr1[i] == '.' && arrStr2[i] == '.') {
+							resultStr = resultStr + arrStr2[i];
+						}	
+					};
+					for (var i = arrStr1.length - arrStr2.length; i < arrStr1.length; i++) {
+						resultStr = resultStr + arrStr1[i];
+						console.log(arrStr1.length);
+						console.log(arrStr2.length);
+						console.log(arrStr1[i]);
+						console.log(i);
+						console.log(resultStr);
+					};
+
+
+				// иначе		
+				} else {
+					for (var i = 0; i < arrStr1.length; i++) {
+						if (arrStr1[i] != '.' && arrStr2[i] == '.') {
+							resultStr = resultStr + arrStr1[i];
+						}
+
+						if (arrStr1[i] != '.' && arrStr2[i] != '.') {
+							resultStr = resultStr + arrStr2[i];
+						}
+
+						if (arrStr1[i] == '.' && arrStr2[i] == '.') {
+							resultStr = resultStr + arrStr2[i];
+						}
+
+						if (arrStr1[i] == '.' && arrStr2[i] != '.') {
+							resultStr = resultStr + arrStr2[i];
+						}					
+					};
+					for (var i = arrStr2.length - arrStr2.length + 1; i < arrStr2.length; i++) {
+						resultStr = resultStr + arrStr2[i];
+					};
+				}
+			}		
+			
+
+			console.log("For " + str1 + " and " + str2 + " , result: " + resultStr);
+
+			return resultStr;
+		};
+	</script>
+</body>
+</html>

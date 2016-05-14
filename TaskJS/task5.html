@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>Task5</title>
+
+	<style type="text/css">
+		.description {
+
+		}
+	</style>
+
+
+	<!-- подключаем стили Mocha, для отображения результатов -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css"> -->
+	<link rel="stylesheet" type="text/css" href="unitTest/mocha.css"></link>
+
+  	<!-- подключаем библиотеку Mocha - фреймворк содержащий основные функции describe и it -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  	<!-- настраиваем Mocha: предстоит BDD-тестирование -->
+  	<!-- BDD - Behavior Driven Development -->
+  	<script>
+		mocha.setup('bdd');
+	</script>
+
+	<!-- подключаем библиотеку chai - содержит множество функий проверки: assert.equal -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+	<!-- в chai есть много всего, выносим assert в глобальную область -->
+	<script>
+		var assert = chai.assert;
+	</script>
+
+</head>
+<body>
+	<div class="description">
+		<h2>Нумерация страниц в стиле xkcd</h2>
+		<p>
+			Книга Рендалла Мунро «xkcd, том 0» использует довольно странную систему нумерации страниц:
+			</br>
+			1, 2, 10, 11, 12, 20, 100, 101, 102, 110, 111, 112, 120, 200, 1000, 1001, ...
+			</br>
+			Она несколько похожа на троичную, но перепрыгивает с 20 на 100, со 120 на 200 и с 200 на 1000. Один из способов определить всю эту последовательность – это выбрать из всех троичных чисел те, которые содержат не более одной двойки и не содержат единиц после двойки. В OEIS эта последовательность имеет номер A169683, а система счисления известна как skew binary.
+			</br>
+			Требуется написать функцию, принимающую число, и возвращающую строку с его представлением в
+			описанной системе счисления.
+		</p>
+	</div>
+
+	<script type="text/javascript">
+		window.onload = function() {
+
+			
+
+		};
+	</script>
+
+	<!-- спецификации -->
+	<script type="text/javascript">
+		describe("divided", function() {
+
+			// it("tests1", function() {
+			// 	assert.equal(divided(128), true);
+			// 	assert.equal(divided(12), true);
+			// 	assert.equal(divided(13), false);
+			// 	assert.equal(divided(120), false);
+			// });
+
+			// it("tests2", function() {
+			// 	assert.equal(divided(-128), true);
+			// 	assert.equal(divided(-12), true);
+			// 	assert.equal(divided(-13), false);
+			// 	assert.equal(divided(-120), false);
+			// });
+
+			// it("tests3", function() {
+			// 	assert.equal(divided(0), false);
+			// 	assert.equal(divided(9007199254740992), false);
+			// 	assert.equal(divided(-8888888888888888), true);
+			// 	assert.equal(divided(162), true);
+			// });
+		});
+	</script>
+
+	<!-- в элементе с id="mocha" будут результаты тестов -->
+	<div id="mocha"></div>
+
+	<!-- запустить тесты! -->
+	<script>
+		mocha.run();
+	</script>
+</body>
+</html>

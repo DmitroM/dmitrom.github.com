@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>Task4</title>
+
+	<style type="text/css">
+		.description {
+
+		}
+	</style>
+</head>
+<body>
+	<div class="description">
+		<h2>Камень – ножницы – бумага</h2>
+		<p>
+			Написать программу, которая играет с пользователем в камень-ножницы-бумага.
+		</p>
+	</div>
+
+	<script type="text/javascript">
+
+		// run!
+		var step = prompt("Your step:");
+		while (step != null) {
+			gameRPS(step);
+			step = prompt("Your step:");			
+		}
+
+		function gameRPS(actionPL) {
+			var arrAction = ['r', 'p', 's'],
+				actionPC = arrAction[randomAction()];
+
+			if (actionPC == actionPL) {
+				return gameRPS(actionPL);
+			}
+
+			switch (actionPL) {
+				case 'r': 
+					if (actionPC == 's') {
+						console.log("PL: " + actionPL + " vs PC: " + actionPC);
+						console.log("You win!");
+						return true;
+					} else {
+						console.log("PL: " + actionPL + " vs PC: " + actionPC);
+						console.log("You lose!");
+						return false;
+					}
+					break;
+
+				case 'p':
+					if (actionPC == 'r') {
+						console.log("PL: " + actionPL + " vs PC: " + actionPC);
+						console.log("You win!");
+						return true;
+					} else {
+						console.log("PL: " + actionPL + " vs PC: " + actionPC);
+						console.log("You lose!");
+						return false;
+					}
+					break;
+
+				case 's': 
+					if (actionPC == 'p') {
+						console.log("PL: " + actionPL + " vs PC: " + actionPC);
+						console.log("You win!");
+						return true;
+					} else {
+						console.log("PL: " + actionPL + " vs PC: " + actionPC);
+						console.log("You lose!");
+						return false;
+					}
+					break;
+
+				default: 
+					console.log("ERROR!");
+					break;
+			};
+		};
+
+		function randomAction() {
+			var rand = Math.random() * 3;
+			rand = Math.floor(rand);
+			return rand;
+		};
+	</script>
+</body>
+</html>

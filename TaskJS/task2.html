@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>Task2</title>
+
+	<style type="text/css">
+		.description {
+
+		}
+	</style>
+
+
+	<!-- подключаем стили Mocha, для отображения результатов -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css"> -->
+	<link rel="stylesheet" type="text/css" href="unitTest/mocha.css"></link>
+
+  	<!-- подключаем библиотеку Mocha - фреймворк содержащий основные функции describe и it -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  	<!-- настраиваем Mocha: предстоит BDD-тестирование -->
+  	<!-- BDD - Behavior Driven Development -->
+  	<script>
+		mocha.setup('bdd');
+	</script>
+
+	<!-- подключаем библиотеку chai - содержит множество функий проверки: assert.equal -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+	<!-- в chai есть много всего, выносим assert в глобальную область -->
+	<script>
+		var assert = chai.assert;
+	</script>
+
+</head>
+<body>
+	<div class="description">
+		<h2>Делится ли число на каждую из его цифр?</h2>
+		<p>
+			Написать функцию, принимающую целое число и возвращающую, делится ли оно на каждую из его цифр. Для чисел, содержащих 0, ответ, естественно, отрицательный.
+		</p>
+	</div>
+
+	<!-- искомая функция -->
+	<script type="text/javascript">
+		// window.onload = function() {
+
+			function divided(number) {
+				var arrNumber = String(number).split('');
+
+				if (arrNumber[0] == '-') {
+					for (var i =  1; i < arrNumber.length; i++) {
+					
+						if (arrNumber[i] == 0) {
+							return false;
+						}
+
+						if (number % arrNumber[i] != 0) {
+							return false;
+						}					
+					}
+				} else {
+					for (var i =  0; i < arrNumber.length; i++) {
+					
+						if (arrNumber[i] == 0) {
+							return false;
+						}
+
+						if (number % arrNumber[i] != 0) {
+							return false;
+						}					
+					}
+				}
+
+				return true;
+			};
+		// };
+	</script>
+
+	<!-- спецификации -->
+	<script type="text/javascript">
+		describe("divided", function() {
+
+			it("tests1", function() {
+				assert.equal(divided(128), true);
+				assert.equal(divided(12), true);
+				assert.equal(divided(13), false);
+				assert.equal(divided(120), false);
+			});
+
+			it("tests2", function() {
+				assert.equal(divided(-128), true);
+				assert.equal(divided(-12), true);
+				assert.equal(divided(-13), false);
+				assert.equal(divided(-120), false);
+			});
+
+			it("tests3", function() {
+				assert.equal(divided(0), false);
+				assert.equal(divided(9007199254740992), false);
+				assert.equal(divided(-8888888888888888), true);
+				assert.equal(divided(162), true);
+			});
+			
+			/*describe("возводит x в степень n", function() {
+
+				function makeTest(x) {
+					var expected = x * x * x;
+					it("при возведении " + x + " в степень 3 результат: " + expected, function() {
+						assert.equal(pow(x, 3), expected);
+					});
+				}
+
+				for (var x = 1; x <= 5; x++) {
+					makeTest(x);
+				}
+			});
+
+			it("при возведении в отрицательную степень результат NaN", function() {
+				assert(isNaN(pow(2, -1)), "pow(2, -1) не NaN");
+			});
+
+			it("при возведении в дробную степень результат NaN", function() {
+				assert(isNaN(pow(2, 1.5)), "pow(2, -1.5) не NaN");
+			});
+
+
+			describe("любое число, кроме нуля, в степени 0 равно 1", function() {
+
+				function makeTest(x) {
+					it("при возведении " + x + " в степень 0 результат: 1", function() {
+						assert.equal(pow(x, 0), 1);
+					});
+				}
+
+				for (var x = -5; x <= 5; x += 2) {
+					makeTest(x);
+				}
+			});
+
+			it("ноль в нулевой степени даёт NaN", function() {
+				assert(isNaN(pow(0, 0)), "0 в степени 0 не NaN");
+			}); */
+		});
+	</script>
+
+	<!-- в элементе с id="mocha" будут результаты тестов -->
+	<div id="mocha"></div>
+
+	<!-- запустить тесты! -->
+	<script>
+		mocha.run();
+	</script>
+</body>
+</html>

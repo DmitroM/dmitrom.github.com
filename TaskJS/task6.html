@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>Task6</title>
+
+	<style type="text/css">
+		.description {
+
+		}
+	</style>
+
+
+	<!-- подключаем стили Mocha, для отображения результатов -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css"> -->
+	<link rel="stylesheet" type="text/css" href="unitTest/mocha.css"></link>
+
+  	<!-- подключаем библиотеку Mocha - фреймворк содержащий основные функции describe и it -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  	<!-- настраиваем Mocha: предстоит BDD-тестирование -->
+  	<!-- BDD - Behavior Driven Development -->
+  	<script>
+		mocha.setup('bdd');
+	</script>
+
+	<!-- подключаем библиотеку chai - содержит множество функий проверки: assert.equal -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+	<!-- в chai есть много всего, выносим assert в глобальную область -->
+	<script>
+		var assert = chai.assert;
+	</script>
+
+</head>
+<body>
+	<div class="description">
+		<h2>Восьмеричный, десятичный, а может шестнадцатеричный?</h2>
+		<p>
+			Дана некая строка, состоящая из букв латинского алфавита и цифр. Следует определить, возможно ли интерпретировать эту строку как число в системе счисления по основанию 8, 10 и 16. Для тех систем счисления (среди перечисленных), где это возможно, и где результат является кодом печатного ascii-символа (0x20 по 0x7E), следует получить этот символ.
+			<br>
+			Требуется написать функцию, принимающую строку и возвращающую массив символов, полученных описанным выше способом. Если печатных символов получить не удалось, следует вернуть пустой массив.
+		</p>
+	</div>
+
+	<script type="text/javascript">
+
+		verification("31");
+		verification("47");
+		verification("69");
+		verification("7A");
+		verification("100");
+		verification("156");
+		verification("126");
+		verification("7a");
+		verification("189");
+		verification("potaTo");
+		verification("5G");
+		verification("19");
+
+		function verification(str) {
+			var arrString = String(str).split(''),
+				strOut = "",
+				codeNumber = str;
+
+			/* проверка на число и СС */
+			if (str == '' || str == ' ') {
+				return strOut;
+			}
+			for (var i = 0; i < arrString.length; i++) {
+				if (!isNumeric(arrString[i])) {
+					return strOut;
+				}
+			}
+
+
+			/* приведение к 16-ричной CC (в той последовательности которая задана тестами в примере) и вывод */
+			// если это 8-ричная СС
+			if (isCodeASCII(convert(codeNumber, 8, 16))) {
+				
+				// добавляем в выводимую строку
+				strOut = strOut + (String.fromCharCode(convert(codeNumber, 8, 16)));
+
+				// console.log("For " + codeNumber + " from 8 to 16 = " + convert(codeNumber, 8, 16) + "; ascii = [" + String.fromCharCode(convert(codeNumber, 8, 16)) + "]");
+			}
+
+			// если это 10-тичная СС
+			if (isCodeASCII(convert(codeNumber, 10, 16))) {
+				strOut = strOut + (String.fromCharCode(convert(codeNumber, 10, 16)));
+
+				// console.log("For " + codeNumber + " from 10 to 16 = " + convert(codeNumber, 10, 16) + "; ascii = [" + String.fromCharCode(convert(codeNumber, 10, 16)) + "]");
+			}
+
+			// если это 16-ричная СС
+			if (isCodeASCII(codeNumber)) {
+				strOut = strOut + (String.fromCharCode(codeNumber));
+
+				// console.log("For " + codeNumber + " from 16 ascii = [" + String.fromCharCode(codeNumber) + "]");
+			}
+
+			// вывод 
+			console.log(codeNumber + ": " + strOut);
+			
+			return strOut;
+		};
+
+		// конвертер чисел между системами счисления
+		function convert(number, fromBase, toBase) {
+			//получаем данные из поле ввода, преобразуя их в Integer
+			var base_from = parseInt(fromBase),
+				base_to = parseInt(toBase);
+
+			//преобразуем данные по основанию base_from в десятичную систему
+			number = parseInt(number, base_from);
+
+			//преобразуем данные из десятичной в систему по указанному основанию base_to
+			var amount = number.toString(base_to);
+			
+			return amount;
+		};
+
+		// проверка на попадание в диапазон ascii
+		function isCodeASCII(n) {
+			return n >= 0x20 && n <= 0x7E;
+		};
+
+		// проверка на число с основанием 8, 10, 16
+		function isNumeric(n) {
+			if (n == 'A' || n == 'a' || 
+				n == 'B' || n == 'b' || 
+				n == 'C' || n == 'c' || 
+				n == 'D' || n == 'd' || 
+				n == 'E' || n == 'e' || 
+				n == 'F' || n == 'f') {
+				return true;
+			}
+			return (!isNaN(parseFloat(n)) && isFinite(n));
+		};
+	</script>
+
+
+	<!-- спецификации -->
+	<script type="text/javascript">
+		describe("verification", function() {
+
+			it("test1.1", function() {
+				assert.equal(verification("31"), ["1"]);
+			});
+			it("test1.2", function() {
+				assert.equal(verification("47"), ["'", "/", "G"]);
+			});
+			it("test1.3", function() {
+				assert.equal(verification("69"), ["E", "i"]);
+			});
+			it("test1.4", function() {
+				assert.equal(verification("7A"), ["z"]);
+			});
+
+
+			it("test2.1", function() {
+				assert.equal(verification("100"), ["@", "d"]);
+			});
+			it("test2.2", function() {
+				assert.equal(verification("156"), ["n"]);
+			});
+			it("test2.3", function() {
+				assert.equal(verification("126"), ["V", "~"]);
+			});
+			it("test2.4", function() {
+				assert.equal(verification("7a"), ["z"]);
+			});
+
+
+			it("test3.1", function() {
+				assert.equal(verification("186"), [""]);
+			});
+			it("test3.2", function() {
+				assert.equal(verification("potaTo"), [""]);
+			});
+			it("test3.3", function() {
+				assert.equal(verification("5G"), [""]);
+			});
+			it("test3.4", function() {
+				assert.equal(verification("19"), [""]);
+			});
+		});
+	</script>
+
+	<!-- в элементе с id="mocha" будут результаты тестов -->
+	<div id="mocha"></div>
+
+	<!-- запустить тесты! -->
+	<script>
+		// mocha.run();
+	</script>
+</body>
+</html>
