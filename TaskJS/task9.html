@@ -26,11 +26,11 @@
 
 	<script type="text/javascript">
 		window.onload = function() {
-			// mergerStr("a....b", "..c...");
-			// mergerStr("aaaaaa", "bbbbbb");
-			// mergerStr("ab.ab.", "b.b.b.");
+			mergerStr("a....b", "..c...");
+			mergerStr("aaaaaa", "bbbbbb");
+			mergerStr("ab.ab.", "b.b.b.");
 			mergerStr("a.......b", "c");
-			// mergerStr("c", "a....b");
+			mergerStr("c", "a....b");
 		};
 
 		function mergerStr(str1, str2) {
@@ -75,13 +75,8 @@
 							resultStr = resultStr + arrStr2[i];
 						}	
 					};
-					for (var i = arrStr1.length - arrStr2.length; i < arrStr1.length; i++) {
+					for (var i = arrStr2.length; i < arrStr1.length; i++) {
 						resultStr = resultStr + arrStr1[i];
-						console.log(arrStr1.length);
-						console.log(arrStr2.length);
-						console.log(arrStr1[i]);
-						console.log(i);
-						console.log(resultStr);
 					};
 
 
