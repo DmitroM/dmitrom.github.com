@@ -18,70 +18,113 @@
 
 			font-family: 'Roboto', sans-serif;
 		}
+		.calculator {
+			margin: auto;
+			width: 400px;
+		}
+		.inputNum {
+			width: 300px;
+			height: 70px;
+
+			padding: 4px;
+			margin: 8px 0 0 0;
+
+			font-size: 30pt;
+		}
+		.inputOper {
+			width: 312px;
+			height: 70px;
+
+			padding: 4px;
+			margin: 8px 0 0 0;
+
+			font-size: 30pt;
+		}
+		.buttonGo {
+			width: 312px;
+			height: 70px;
+
+			margin: 8px 0 0 0;
+
+			font-size: 30pt;
+		}
+		.outputRes {
+			font-size: 30pt;
+		}
+		.error {
+			background-color: red;
+			width: 312px;
+			height: 70px;
+		}
+		.madeby {
+			position: fixed;
+			bottom: 4px;
+			left: 4px;
+			color: rgba(0,0,0,.38);
+			font-size: 12pt;
+		}
 	</style>
 </head>
 <body>
-	<!-- <form> -->
-		<input type="text" id="numder1" value="1"></input>
-		<div id="error1"></div>
+	<div class="calculator">
+		<input type="text" id="numder1" class="inputNum" placeholder="Number"></input>
+		<div id="error1" class="error"></div>
 
-		<select id="operation">
+		<select id="operation" class="inputOper">
 			<option value="+" id="plus">+</option>
 			<option value="-" id="minus">-</option>
 			<option value="*" id="multiply">*</option>
 			<option value="/" id="divided">/</option>
 		</select>
 
-		<input type="text" id="numder2" value="2"></input>
-		<div id="error2"></div>
+		<input type="text" id="numder2" class="inputNum" placeholder="Number"></input>
+		<div id="error2" class="error"></div>
 
-		<input type="submit" value="Go" id="run"></input>
+		<input type="submit" value="Go" id="run" class="buttonGo"></input>
 
-		<span id="result"></span>
-		
-	<!-- </form> -->
+		<p><span id="result" class="outputRes"></span></p>
+	</div>
+
+	<span class="madeby">Made by DM</span>
+
 
 	<script type="text/javascript">
 		window.onload = function() {
-
-			var $numder1 = document.getElementById("numder1"),
-				$numder2 = document.getElementById("numder2"),
-				$operation = document.getElementById("operation"),
-				$runButton = document.getElementById("run"),
-				result = 0;
-
+			var $runButton = document.getElementById("run");
 
 			// Run!
 			$runButton.addEventListener("click", calculator);
 
 
 			function calculator() {
+				var $numder1 = document.getElementById("numder1"),
+					$numder2 = document.getElementById("numder2"),
+					$operation = document.getElementById("operation"),	
+					result = 0;
 
 				// приведение к типу
 				$numder1 = Number($numder1.value);
 				$numder2 = Number($numder2.value);
 
 				// проверка
-				if(!verification()) {
+				if(!verification($numder1, $numder2, $operation.value)) {
 					// действие при ошибке
-					var div = document.createElement('div');
+
+					// var div = document.createElement('div');
 					// div.className = "error";
-					div.innerHTML = "ERROR";
+					// div.innerHTML = "ERROR";
 
 					// document.getElementById('error').appendChild(div);
 
-					error2.appendChild(div);
-					error1.appendChild(div);
+					// error2.appendChild(div);
+					// error1.appendChild(div);
 
+					document.getElementById('result').innerText = "ERROR!";
 
 					return;
 				}
 
 
-
-				console.log("numbers: " + $numder1 + "; " + $numder2);
-				console.log("operation: " + $operation.value);				
-				
 				switch ($operation.value) {
 					case '+':
 						result = $numder1 + $numder2;
@@ -104,22 +147,29 @@
 						break;
 				};
 
-				console.log("result: " + result);
+				// вывод в консоль
+				console.log($numder1 + " " + $operation.value + " " + $numder2 + " = " + result);
+				console.log("");
 
 				// вывод oninput
 				document.getElementById('result').innerText = result;
+
+				return result;
 			};
 
 
-			function verification() {
+			function verification($numder1, $numder2, $operation) {
 				// ввод не цифр
-				// if (typeof $numder1 != "number" || typeof $numde2 != "number") {
-				// 	console.log("ERROR!");
-				// 	return false;
-				// } 
+				if (typeof $numder1 != "number" || typeof $numde2 != "number") {
+					console.log("ERROR!");
+					console.log(typeof $numder1);
+					console.log(typeof $numder2);
+					return false;
+				} 
+				// console.log(typeof $numder1);
 
 				// деление на 0
-				if ($operation.value == '/' && $numder2 == 0) {
+				if ($operation == '/' && $numder2 == 0) {
 					console.log("ERROR!");
 					return false;
 				}
