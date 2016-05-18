@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>TaskJS - Calc</title>
+
+	<style type="text/css">
+		body {
+			background-color: #93C8FF;
+
+			width: calc(100% - 20px);
+			height: calc(100% - 20px);
+
+			margin: 0;
+			padding: 10px;
+
+			display: flex;
+
+			font-family: 'Roboto', sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<!-- <form> -->
+		<input type="text" id="numder1" value="1"></input>
+		<div id="error1"></div>
+
+		<select id="operation">
+			<option value="+" id="plus">+</option>
+			<option value="-" id="minus">-</option>
+			<option value="*" id="multiply">*</option>
+			<option value="/" id="divided">/</option>
+		</select>
+
+		<input type="text" id="numder2" value="2"></input>
+		<div id="error2"></div>
+
+		<input type="submit" value="Go" id="run"></input>
+
+		<span id="result"></span>
+		
+	<!-- </form> -->
+
+	<script type="text/javascript">
+		window.onload = function() {
+
+			var $numder1 = document.getElementById("numder1"),
+				$numder2 = document.getElementById("numder2"),
+				$operation = document.getElementById("operation"),
+				$runButton = document.getElementById("run"),
+				result = 0;
+
+
+			// Run!
+			$runButton.addEventListener("click", calculator);
+
+
+			function calculator() {
+
+				// приведение к типу
+				$numder1 = Number($numder1.value);
+				$numder2 = Number($numder2.value);
+
+				// проверка
+				if(!verification()) {
+					// действие при ошибке
+					var div = document.createElement('div');
+					// div.className = "error";
+					div.innerHTML = "ERROR";
+
+					// document.getElementById('error').appendChild(div);
+
+					error2.appendChild(div);
+					error1.appendChild(div);
+
+
+					return;
+				}
+
+
+
+				console.log("numbers: " + $numder1 + "; " + $numder2);
+				console.log("operation: " + $operation.value);				
+				
+				switch ($operation.value) {
+					case '+':
+						result = $numder1 + $numder2;
+						break;
+
+					case '-': 
+						result = $numder1 - $numder2;
+						break;
+
+					case '*': 
+						result = $numder1 * $numder2;
+						break;
+
+					case '/':
+						result = $numder1 / $numder2;
+						break;
+
+					default:
+						console.log("ERROR!"); 
+						break;
+				};
+
+				console.log("result: " + result);
+
+				// вывод oninput
+				document.getElementById('result').innerText = result;
+			};
+
+
+			function verification() {
+				// ввод не цифр
+				// if (typeof $numder1 != "number" || typeof $numde2 != "number") {
+				// 	console.log("ERROR!");
+				// 	return false;
+				// } 
+
+				// деление на 0
+				if ($operation.value == '/' && $numder2 == 0) {
+					console.log("ERROR!");
+					return false;
+				}
+
+				return true;
+			};
+		};
+	</script>
+</body>
+</html>
