@@ -23,11 +23,12 @@
 			width: 400px;
 		}
 		.inputNum {
-			width: 300px;
+			width: 308px;
 			height: 70px;
 
-			padding: 4px;
+			padding: 4px 0 4px 0px;
 			margin: 8px 0 0 0;
+			text-align: center;
 
 			font-size: 30pt;
 		}
@@ -35,8 +36,11 @@
 			width: 312px;
 			height: 70px;
 
-			padding: 4px;
+			padding: 4px 0 4px 140px;
 			margin: 8px 0 0 0;
+
+			border: 15px;
+			border-color: red;
 
 			font-size: 30pt;
 		}
@@ -50,11 +54,21 @@
 		}
 		.outputRes {
 			font-size: 30pt;
+			text-align: center;
+			padding: 0 80px 0 0;
 		}
-		.error {
+		.errorOff {
+			display: none;
+		}
+		.errorOn {
 			background-color: red;
 			width: 312px;
-			height: 70px;
+			height: 40px;
+
+			padding: 25px 0 0 0;		
+
+			text-align: center;
+			color: white;
 		}
 		.madeby {
 			position: fixed;
@@ -67,8 +81,8 @@
 </head>
 <body>
 	<div class="calculator">
-		<input type="text" id="numder1" class="inputNum" placeholder="Number"></input>
-		<div id="error1" class="error"></div>
+		<input type="text" id="number1" class="inputNum" placeholder="Number"></input>
+		<div id="error1" class="errorOff"></div>
 
 		<select id="operation" class="inputOper">
 			<option value="+" id="plus">+</option>
@@ -77,12 +91,12 @@
 			<option value="/" id="divided">/</option>
 		</select>
 
-		<input type="text" id="numder2" class="inputNum" placeholder="Number"></input>
-		<div id="error2" class="error"></div>
+		<input type="text" id="number2" class="inputNum" placeholder="Number"></input>
+		<div id="error2" class="errorOff"></div>
 
 		<input type="submit" value="Go" id="run" class="buttonGo"></input>
 
-		<p><span id="result" class="outputRes"></span></p>
+		<p class="outputRes"><span id="result"></span></p>
 	</div>
 
 	<span class="madeby">Made by DM</span>
@@ -90,56 +104,52 @@
 
 	<script type="text/javascript">
 		window.onload = function() {
-			var $runButton = document.getElementById("run");
+			var $runButton = document.getElementById("run"),
+				$error1 = document.getElementById("error1"),
+				$error2 = document.getElementById("error2");
 
 			// Run!
 			$runButton.addEventListener("click", calculator);
 
 
 			function calculator() {
-				var $numder1 = document.getElementById("numder1"),
-					$numder2 = document.getElementById("numder2"),
-					$operation = document.getElementById("operation"),	
+				var $number1 = document.getElementById("number1").value,
+					$number2 = document.getElementById("number2").value,
+					$operation = document.getElementById("operation"),		
 					result = 0;
 
+				// убрать предыдущие ошибки
+				$error1.className = "errorOff";
+				$error2.className = "errorOff";
+
 				// приведение к типу
-				$numder1 = Number($numder1.value);
-				$numder2 = Number($numder2.value);
+				$number1 = Number($number1);
+				$number2 = Number($number2);
 
 				// проверка
-				if(!verification($numder1, $numder2, $operation.value)) {
+				if(!verification($number1, $number2, $operation.value)) {
 					// действие при ошибке
-
-					// var div = document.createElement('div');
-					// div.className = "error";
-					// div.innerHTML = "ERROR";
-
-					// document.getElementById('error').appendChild(div);
-
-					// error2.appendChild(div);
-					// error1.appendChild(div);
-
 					document.getElementById('result').innerText = "ERROR!";
 
 					return;
 				}
-
-
+				
+				// операция 
 				switch ($operation.value) {
 					case '+':
-						result = $numder1 + $numder2;
+						result = $number1 + $number2;
 						break;
 
 					case '-': 
-						result = $numder1 - $numder2;
+						result = $number1 - $number2;
 						break;
 
 					case '*': 
-						result = $numder1 * $numder2;
+						result = $number1 * $number2;
 						break;
 
 					case '/':
-						result = $numder1 / $numder2;
+						result = $number1 / $number2;
 						break;
 
 					default:
@@ -148,33 +158,39 @@
 				};
 
 				// вывод в консоль
-				console.log($numder1 + " " + $operation.value + " " + $numder2 + " = " + result);
+				console.log($number1 + " " + $operation.value + " " + $number2 + " = " + result);
 				console.log("");
 
-				// вывод oninput
-				document.getElementById('result').innerText = result;
-
-				return result;
+				// вывод oninput и округление 
+				document.getElementById('result').innerText = Math.round(result * 100000) / 100000;
 			};
 
 
-			function verification($numder1, $numder2, $operation) {
+			function verification($number1, $number2, $operation) {
+				var count = true;
 				// ввод не цифр
-				if (typeof $numder1 != "number" || typeof $numde2 != "number") {
+				if (isNaN($number1)) {
+					$error1.className = "errorOn";
+					$error1.innerText = "Please enter the numbers";
 					console.log("ERROR!");
-					console.log(typeof $numder1);
-					console.log(typeof $numder2);
-					return false;
+					count = false;
 				} 
-				// console.log(typeof $numder1);
-
-				// деление на 0
-				if ($operation == '/' && $numder2 == 0) {
+				if (isNaN($number2)) {
+					$error2.className = "errorOn";
+					$error2.innerText = "Please enter the numbers";
 					console.log("ERROR!");
-					return false;
+					count = false;
 				}
 
-				return true;
+				// деление на 0
+				if ($operation == '/' && $number2 == 0) {
+					$error2.className = "errorOn";
+					$error2.innerText = "You can not divide by zero";
+					console.log("ERROR!");
+					count = false;
+				}
+
+				return count;
 			};
 		};
 	</script>
