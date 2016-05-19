@@ -2,19 +2,52 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
-	<title>Task3</title>
+	<title>Task7</title>
 
 	<style type="text/css">
+		.description {
 
+		}
 	</style>
 </head>
 <body>
+	<div class="description">
+		<h2>FizzBuzz</h2>
+		<p>
+			Написать функцию, принимающую целое число n и возвращающую массив из n строк. Для получения массива следует взять все числа от 1 до n включительно и заменить их следующим образом:
+			<ul>
+				<li>Если число делится на 3, заменить его на "Fizz".</li>
+				<li>Если число делится на 5, заменить его на "Buzz".</li>
+				<li>Если число делится на 3 и на 5 одновременно, заменить его на "FizzBuzz".</li>
+				<li>В остальных случаях просто преобразовать число в строку.</li>
+			</ul>
+		</p>
+	</div>
 
+	<!-- искомая функция -->
 	<script type="text/javascript">
 		window.onload = function() {
+			fizzBuzz(prompt("Enter number: "));
 
-			
+			function fizzBuzz(n) {
+				var result = '';
+				for (var i = 1; i <= n; i++) {
+					if (i % 3 == 0 && i % 5 != 0) {
+						result += "Fizz\n";
+					}
+					if (i % 5 == 0 && i % 3 != 0) {
+						result += "Buzz\n";
+					}
+					if (i % 3 == 0 && i % 5 == 0) {
+						result += "FizzBuzz\n";
+					}
+					if (i % 3 != 0 && i % 5 != 0) {
+						result += i + "\n";
+					}
+				};
 
+				console.log(result);
+			};
 		};
 	</script>
 </body>
