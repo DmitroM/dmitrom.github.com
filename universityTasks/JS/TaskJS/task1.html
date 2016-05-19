@@ -5,8 +5,31 @@
 	<title>Task1</title>
 
 	<style type="text/css">
+		.description {
 
+		}
 	</style>
+
+
+
+	<!-- подключаем стили Mocha, для отображения результатов -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css"> -->
+	<link rel="stylesheet" type="text/css" href="unitTest/mocha.css"></link>
+
+  	<!-- подключаем библиотеку Mocha - фреймворк содержащий основные функции describe и it -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  	<!-- настраиваем Mocha: предстоит BDD-тестирование -->
+  	<!-- BDD - Behavior Driven Development -->
+  	<script>
+		mocha.setup('bdd');
+	</script>
+
+	<!-- подключаем библиотеку chai - содержит множество функий проверки: assert.equal -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+	<!-- в chai есть много всего, выносим assert в глобальную область -->
+	<script>
+		var assert = chai.assert;
+	</script>
 </head>
 <body>
 	<div>
@@ -18,10 +41,110 @@
 
 	<script type="text/javascript">
 		window.onload = function() {
-
-			
-
+			// пользовательский ввод
+			// console.log(isUuid(prompt("UUID: ")));
 		};
+
+		function isUuid(uuid) {
+			if (uuid.length != 36) {
+				// console.log("Length != 36; length = " + uuid.length);
+				return false;
+			}
+
+			for (var i = 0; i < uuid.length; i++) {
+				if (!isHex(uuid[i])) {
+					// console.log("isNotHex");
+					return false;
+				}
+				// if (uuid[i] != '-' && (i == 8 && i == 13 && i == 18 && i == 23)) {
+				// 	// console.log("the \'-\' not rule");
+				// 	return false;
+				// }
+
+				// if ((uuid[i] != '-' && i == 8) || 
+				// 	(uuid[i] != '-' && i == 13) || 
+				// 	(uuid[i] != '-' && i == 18) || 
+				// 	(uuid[i] != '-' && i == 23) 
+				// 	) {
+				// 	return false;
+				// }
+
+				if (uuid[i] != '-' && i == 8) {
+					return false;
+				} 
+				if (uuid[i] != '-' && i == 13) {
+					return false;
+				} 
+				if (uuid[i] != '-' && i == 18) {
+					return false;
+				}
+				if (uuid[i] != '-' && i == 23) {
+					return false;
+				}
+			};
+			
+			return true;
+		};
+
+		function isHex(n) {
+			if (n >= 0 || n == '-' ||
+				n == 'A' || n == 'a' ||
+				n == 'B' || n == 'b' ||
+				n == 'C' || n == 'c' ||
+				n == 'D' || n == 'd' ||
+				n == 'E' || n == 'e' ||
+				n == 'F' || n == 'f'
+				) {
+				return true;
+			}
+			if (n == ' ') {
+				return false;
+			}
+			return false;
+		};
+	</script>
+
+
+	<!-- спецификации -->
+	<script type="text/javascript">
+		describe("isUuid", function() {
+
+			it("tests1", function() {
+				assert.equal(isUuid("0CEF9A8C-5410-794C-8CBE-45108DA7F032"), true);
+				assert.equal(isUuid("00000000-0000-0000-0000-000000000000"), true);
+				assert.equal(isUuid("0cef9a8c-5410-794c-8cbe-45108da7f032"), true);
+				assert.equal(isUuid("0CEF9A8C-5410-794C-8cBe-45108da7f032"), true);
+			});
+
+			it("tests2", function() {
+				assert.equal(isUuid("{0CEF9A8C-5410-794C-8CBE-45108DA7F032}"), false);
+				assert.equal(isUuid("0GEF9A8C-5410-794C-8CBE-45108DA7F032"), false);
+				assert.equal(isUuid("0CEF9A8C 5410-794C-8CBE-45108DA7F032"), false);
+				assert.equal(isUuid("0CEF9A8C-5410794C-8CBE-45108DA7F032"), false);
+			});
+
+			it("tests3", function() {
+				assert.equal(isUuid("0CEF9A8C-54107-94C-8CBE-45108DA7F032"), false);
+				assert.equal(isUuid("0CEF9A8CD-5410-794C-8CBE-45108DA7F032"), false);
+				assert.equal(isUuid("0CEF9A8C-5410-794C-8CBE-45108DA7F032-"), false);
+				assert.equal(isUuid("-0CEF9A8C-5410-794C-8CBE-45108DA7F032"), false);
+			});
+
+			it("tests4", function() {
+				assert.equal(isUuid("0CEF9A8C-5410-794C-8CBE-45108DA7F032-123"), false);
+				assert.equal(isUuid("0CEF9A8C5410794C8CBE45108DA7F032"), false);
+				// assert.equal(isUuid("0CEF9A8C-5410-794C-8CB -45108DA7F032"), false);
+				// assert.equal(isUuid("0CEF9A8C-5410-794C- CBE-45108DA7F032"), false);
+			});
+		});
+	</script>
+
+	<!-- в элементе с id="mocha" будут результаты тестов -->
+	<div id="mocha"></div>
+
+	<!-- запустить тесты! -->
+	<script>
+		mocha.run();
 	</script>
 </body>
 </html>
