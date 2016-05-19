@@ -2,19 +2,74 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
-	<title>Task3</title>
+	<title>Task8</title>
 
 	<style type="text/css">
+		.description {
 
+		}
 	</style>
 </head>
 <body>
+	<div class="description">
+		<h2>День рождения</h2>
+		<p>
+			Сделать html-страницу, которая при открытии при помощи prompt запрашивает число – возраст.
+		</p>
+	</div>
 
+	<!-- тортик -->
+	<pre id="cake"></pre>
+
+
+	<!-- искомая функция -->
 	<script type="text/javascript">
 		window.onload = function() {
+			var age = prompt("Enter your age: "),
+				bit = '';
 
-			
+			if (age > 0) {
+				for (var i = 0; i < age; i++) {
+					bit += " $ ";
+					console.log(" $ ");
+				};
+				bit += '\n';
 
+				for (var i = 0; i < age; i++) {
+					bit += " | ";
+					console.log(" | ");
+				};
+				bit += '\n';
+
+				for (var i = 0; i < age; i++) {
+					bit += "---";
+					console.log("---");
+				};
+				bit += '\n';
+
+				for (var i = 0; i < age; i++) {
+					bit += "~~~";
+					console.log("~~~");
+				};
+				bit += '\n';
+
+				for (var i = 0; i < age; i++) {
+					bit += "___";
+					console.log("___");
+				};
+				document.getElementById("cake").innerText = bit;
+
+			} else {
+				if (age < 0) {
+					bit += "---\n";
+					bit += "~~~\n";
+					bit += "___\n";
+
+					document.getElementById("cake").innerText = bit;
+				} else {
+					document.getElementById("cake").innerText = "Позравляю с новорожденным! :D";
+				}
+			}
 		};
 	</script>
 </body>
