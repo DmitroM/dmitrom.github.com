@@ -1,0 +1,295 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  -webkit-perspective: 500;
+  background: black;
+  overflow: hidden;
+}
+
+#world {
+  transform-style: preserve-3d;
+  width: 500px;
+  height: 500px;
+  background: #333;
+  position: relative;
+  margin: 0 auto 0;
+  transform: rotateX(45deg) rotate(0deg) translateZ(-300px);
+  transform-origin: 250px 250px -250px;
+  transition: 1s;
+}
+
+#cube {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  transform: translateZ(50px);
+  transform-style: preserve-3d;
+  transition: .1s;
+  transform-origin: 50px 50px 50px;
+}
+
+ul#cube li {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  background: rgba(0, 255, 0, 0.4);
+  box-shadow: 0 0 10px lime;
+}
+
+ul#cube li:nth-child(1) {
+  transform: translateZ(50px);
+}
+
+ul#cube li:nth-child(2) {
+  transform: translateZ(-50px);
+}
+
+ul#cube li:nth-child(3) {
+  transform: rotateX(90deg) rotateY(90deg) translateZ(-50px);
+}
+
+ul#cube li:nth-child(4) {
+  transform: rotateX(90deg) rotateY(90deg) translateZ(50px);
+}
+
+ul#cube li:nth-child(5) {
+  transform: rotateX(90deg) translateZ(50px);
+}
+
+ul#cube li:nth-child(6) {
+  transform: rotateX(90deg) translateZ(-50px);
+}
+
+ul#floors {
+  width: 500px;
+  height: 500px;
+  transform-style: preserve-3d;
+}
+
+.floor {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  transition: 1s;
+  opacity: 0;
+  box-shadow: 0 0 10px #fff;
+}
+
+.floordown, .floorup {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  background: rgba(255, 0, 0, 0.4);
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+.floorup {
+  background: rgba(0, 255, 0, 0.4);
+}
+
+.x0y0 {
+  top: 0px;
+  left: 0px;
+}
+
+.x0y1 {
+  top: 0px;
+  left: 100px;
+}
+
+.x0y2 {
+  top: 0px;
+  left: 200px;
+}
+
+.x0y3 {
+  top: 0px;
+  left: 300px;
+}
+
+.x0y4 {
+  top: 0px;
+  left: 400px;
+}
+
+.x1y0 {
+  top: 100px;
+  left: 0px;
+}
+
+.x1y1 {
+  top: 100px;
+  left: 100px;
+}
+
+.x1y2 {
+  top: 100px;
+  left: 200px;
+}
+
+.x1y3 {
+  top: 100px;
+  left: 300px;
+}
+
+.x1y4 {
+  top: 100px;
+  left: 400px;
+}
+
+.x2y0 {
+  top: 200px;
+  left: 0px;
+}
+
+.x2y1 {
+  top: 200px;
+  left: 100px;
+}
+
+.x2y2 {
+  top: 200px;
+  left: 200px;
+}
+
+.x2y3 {
+  top: 200px;
+  left: 300px;
+}
+
+.x2y4 {
+  top: 200px;
+  left: 400px;
+}
+
+.x3y0 {
+  top: 300px;
+  left: 0px;
+}
+
+.x3y1 {
+  top: 300px;
+  left: 100px;
+}
+
+.x3y2 {
+  top: 300px;
+  left: 200px;
+}
+
+.x3y3 {
+  top: 300px;
+  left: 300px;
+}
+
+.x3y4 {
+  top: 300px;
+  left: 400px;
+}
+
+.x4y0 {
+  top: 400px;
+  left: 0px;
+}
+
+.x4y1 {
+  top: 400px;
+  left: 100px;
+}
+
+.x4y2 {
+  top: 400px;
+  left: 200px;
+}
+
+.x4y3 {
+  top: 400px;
+  left: 300px;
+}
+
+.x4y4 {
+  top: 400px;
+  left: 400px;
+}
+
+.floor0 {
+  background: rgba(200, 200, 200, 0.9);
+  opacity: 1;
+  box-shadow: none;
+}
+
+.floor1 {
+  background: rgba(205, 205, 205, 0.9);
+  transform: translateZ(100px);
+}
+
+.floor2 {
+  background: rgba(210, 210, 210, 0.9);
+  transform: translateZ(200px);
+}
+
+.floor3 {
+  background: rgba(215, 215, 215, 0.9);
+  transform: translateZ(300px);
+}
+
+.floor4 {
+  background: rgba(220, 220, 220, 0.9);
+  transform: translateZ(400px);
+}
+
+.floor5 {
+  background: rgba(225, 225, 225, 0.9);
+  transform: translateZ(500px);
+}
+
+.floor6 {
+  background: rgba(230, 230, 230, 0.9);
+  transform: translateZ(600px);
+}
+
+.floor7 {
+  background: rgba(235, 235, 235, 0.9);
+  transform: translateZ(700px);
+}
+
+.floor8 {
+  background: rgba(240, 240, 240, 0.9);
+  transform: translateZ(800px);
+}
+
+.floor9 {
+  background: rgba(245, 245, 245, 0.9);
+  transform: translateZ(900px);
+}
+
+.floor-gameover {
+  background: rgba(0, 255, 0, 0.9);
+  transform: translateZ(1000px);
+}
+
+#result {
+  width: 500px;
+  height: 250px;
+  text-align: center;
+  line-height: 250px;
+  font-family: helveticaNeue-light;
+  color: #fff;
+  font-size: 2em;
+  transform: translateY(-625px) translateZ(125px) rotateX(-90deg);
+  transition: 1s;
+  position: absolute;
+}
+
+#stats {
+  width: 500px;
+  height: 250px;
+  text-align: center;
+  line-height: 250px;
+  position: absolute;
+  font-family: helveticaNeue-light;
+  color: #fff;
+  font-size: 1em;
+  transform: translateY(-625px) translateZ(200px) rotateX(-90deg);
+  transition: 1s;
+}
