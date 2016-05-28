@@ -182,6 +182,20 @@
 					count = false;
 				}
 
+				// пустые поля
+				if ($number1 == '') {
+					$error1.className = "errorOn";
+					$error1.innerText = "Please enter the numbers";
+					console.log("ERROR!");
+					count = false;
+				}
+				if ($number2 == '') {
+					$error2.className = "errorOn";
+					$error2.innerText = "Please enter the numbers";
+					console.log("ERROR!");
+					count = false;
+				}
+
 				// деление на 0
 				if ($operation == '/' && $number2 == 0) {
 					$error2.className = "errorOn";
