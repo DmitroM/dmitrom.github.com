@@ -21,10 +21,16 @@
 			display: inline-block;
 		}
 
+		.result {
+
+		}
+
 		.buttons {
 
 		}
 	</style>
+
+	<script type="text/javascript" src="jQuery/jquery-2.2.4.js"></script>
 </head>
 <body>
 	<div class="main">
@@ -32,17 +38,32 @@
 		<h2>Heroes</h2>
 
 		<form>
-
 			<div class="head">			
-				<input class="number" id="num1" />
-				<input type="button" value="GO" id="start" />
+				<input class="formRequest" id="request" />
+				<input type="button" value="GO" id="run" />
 				<div>Stat</div>
 			</div>
 
-			<table class="rez">
+			<table class="result">
 				<tr>
 					<td><b>Name</b></td>
 					<td><b>Episodes</b></td>
+				</tr>
+				<tr>
+					<td>a</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>b</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>c</td>
+					<td>3</td>
+				</tr>
+				<tr>
+					<td>d</td>
+					<td>4</td>
 				</tr>
 			</table>
 
@@ -57,6 +78,27 @@
 
 	<script type="text/javascript">
 		window.onload = function() {
+			var $runButton = document.getElementById("run");
+
+			// Run!
+			$runButton.addEventListener("click", search);
+
+			function search() {
+				// получение данных из формы
+				var $request = document.getElementById("request").value;
+
+				console.log($request);
+
+			};
+
+			 
+			
+
+			// обработка событий
+			
+			// вставка данных из ответа в таблицу
+
+			// пагинация
 
 		};
 	</script>
