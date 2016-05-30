@@ -6,7 +6,15 @@
 
 	<style type="text/css">
 		body {
-			
+			width: calc(100% - 20px);
+			height: calc(100% - 20px);
+
+			margin: 0;
+			padding: 10px 10px;
+
+			display: flex;
+
+			font-family: 'Roboto', sans-serif;			
 		}
 
 		.main {
@@ -14,11 +22,21 @@
 			width: 800px;
 			margin: 0 auto;
 
-			border-radius: 2px;
+			border-radius: 5px;
 		}
 
 		.head {
 			display: inline-block;
+		}
+
+		.formRequest {
+			margin: 0 10px;
+
+			font-size: 15pt;
+		}
+		.formButton {
+			width: 30px;
+			height: 30px;
 		}
 
 		.result {
@@ -31,65 +49,70 @@
 	</style>
 
 	<!-- <script type="text/javascript" src="jquery/jquery-2.2.4.js"></script> -->
-	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+	<!-- <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script> -->
+	<!-- <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script> -->
+    <script data-require="jquery@2.1.1" data-semver="1.9.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+
+</head>
+<body>
 
 	<script type="text/javascript">
-	 	// по завершению загрузки страницы
-		$(document).ready(function(){
+		// по завершению загрузки страницы
+		$(document).ready(function() {
 			// вешаем на клик по элементу с id = run
-			$('#run').click(function(){
-				// загрузку JSON данных из файла heroes.json
-				// $.getJSON('ajax/heroes.json', {}, function(json){
-					// заполняем DOM элемент данными из JSON объекта
-					// $('#result').html('');
-					
-					// $('#result').append('To: ' + json.note.to + '<br/>')
-					// 			.append('From: ' + json.note.from + '<br/>')
-					// 			.append('<b>' + json.note.heading + '</b><br/>')
-					// 			.append(json.note.body + '<br/>');
+			$('#run').click(function() {
+				var showData = $('#result'),
+					load = $('#load');
 
-				$.getJSON('ajax/heroes.json', function(data) {
-					$('#result').append('+');
-					console.log("+");
+				// загрузку JSON данных из файла heroes.json
+				$.getJSON('heroes.json', function(data) {
+					console.log(data);
+
+					// итерация 
+					var items = data.heroes.map(function(item) {
+						return item.name + ': ' + item.episode;
+					});
+
+					// удаление сообщения о загрузке 
+					load.empty();
+
+					// формирование данных
+					if (items.length) {
+						var content = '<tr><td>' + items.join('</td><td>') + '</td></tr>';
+						var list = $('<table />').html(content);
+						showData.append(list);
+					}
+
+
+					// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');
+
 				});
+
+				// сообщение о загрузке
+				load.text('Loading the JSON file.');
 			});
 		});
 	</script>
-</head>
-<body>
+
 	<div class="main">
 
 		<h2>Heroes</h2>
 
 		<form>
 			<div class="head">			
-				<input class="formRequest" id="request" />
-				<input type="button" value="GO" id="run" />
+				<input class="formRequest" id="request" placeholder="Text"/>
+				<input class="formButton" type="button" value="GO" id="run" />
 				<div>Stat</div>
 			</div>
 
-			<div id="result"></div>
+			<div id="load"></div>
 
-			<table class="result">
+			<table class="result" id="result">
 				<tr>
 					<td><b>Name</b></td>
 					<td><b>Episodes</b></td>
-				</tr>
-				<tr>
-					<td>a</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>b</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>c</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<td>d</td>
-					<td>4</td>
 				</tr>
 			</table>
 
@@ -100,6 +123,8 @@
 
 		</form>
 	</div>
+
+
 
 
 	<script type="text/javascript">

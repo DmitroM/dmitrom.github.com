@@ -1,0 +1,20 @@
+{
+	"heroes": [
+		{
+			"name": "Bob",
+			"episode": "1"
+		},{
+			"name": "Clark",
+			"episode": "2"
+		},{
+			"name": "Eddison",
+			"episode": "3"
+		},{
+			"name": "Jamma",
+			"episode": "3"
+		},{
+			"name": "Jak",
+			"episode": "4"
+		}
+	]
+}
