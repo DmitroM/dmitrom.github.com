@@ -33,15 +33,27 @@
 	<!-- <script type="text/javascript" src="jquery/jquery-2.2.4.js"></script> -->
 	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
-	<script>
-		var ws = new WebSocket("ws://localhost:8181");
-		ws.onopen = function(e) {
-			console.log('Connection to server opened');
-		};
-		
-		function sendMessage() {
-			ws.send($('#message').val());
-		};
+	<script type="text/javascript">
+	 	// по завершению загрузки страницы
+		$(document).ready(function(){
+			// вешаем на клик по элементу с id = run
+			$('#run').click(function(){
+				// загрузку JSON данных из файла heroes.json
+				// $.getJSON('ajax/heroes.json', {}, function(json){
+					// заполняем DOM элемент данными из JSON объекта
+					// $('#result').html('');
+					
+					// $('#result').append('To: ' + json.note.to + '<br/>')
+					// 			.append('From: ' + json.note.from + '<br/>')
+					// 			.append('<b>' + json.note.heading + '</b><br/>')
+					// 			.append(json.note.body + '<br/>');
+
+				$.getJSON('ajax/heroes.json', function(data) {
+					$('#result').append('+');
+					console.log("+");
+				});
+			});
+		});
 	</script>
 </head>
 <body>
@@ -56,7 +68,9 @@
 				<div>Stat</div>
 			</div>
 
-			<table class="result" id="result">
+			<div id="result"></div>
+
+			<table class="result">
 				<tr>
 					<td><b>Name</b></td>
 					<td><b>Episodes</b></td>
@@ -101,35 +115,15 @@
 
 			// 	console.log($request);
 
-			// };
+			// };		
 
-			 
-			
-
-			// обработка событий
-			
+			// обработка событий			
 			// вставка данных из ответа в таблицу
-
 			// пагинация
 
 		};
 
-		// по завершению загрузки страницы
-		$(document).ready(function(){
-			// вешаем на клик по элементу с id = run
-			$('#run').click(function(){
-				// загрузку JSON данных из файла heroes.json
-				$.getJSON('/universityTasks/JS/TaskJQuery-AJAX/ajax/heroes.json', {}, function(json){
-					// заполняем DOM элемент данными из JSON объекта
-					$('#result').html('');
-					
-					$('#result').append('To: ' + json.note.to + '<br/>')
-								.append('From: ' + json.note.from + '<br/>')
-								.append('<b>' + json.note.heading + '</b><br/>')
-								.append(json.note.body + '<br/>');
-			    });
-			});
-		});
+		
 	</script>
 </body>
 </html>
