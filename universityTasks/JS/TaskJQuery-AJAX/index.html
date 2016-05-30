@@ -119,7 +119,7 @@
 			// вешаем на клик по элементу с id = run
 			$('#run').click(function(){
 				// загрузку JSON данных из файла heroes.json
-				$.getJSON('/ajax/heroes.json', {}, function(json){
+				$.getJSON('ajax/heroes.json', {}, function(json){
 					// заполняем DOM элемент данными из JSON объекта
 					$('#result').html('');
 					
