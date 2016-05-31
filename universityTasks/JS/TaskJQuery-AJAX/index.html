@@ -19,6 +19,8 @@
 
 		.main {
 			background-color: #93C8FF;
+
+			height: 500px;
 			width: 800px;
 			margin: 0 auto;
 
@@ -28,6 +30,9 @@
 		.head {
 			display: inline-block;
 		}
+		h2 {
+			text-align: center;
+		}
 
 		.formRequest {
 			margin: 0 10px;
@@ -35,16 +40,30 @@
 			font-size: 15pt;
 		}
 		.formButton {
-			width: 30px;
+			width: 40px;
 			height: 30px;
 		}
 
 		.result {
-
+			width: 80%;
+			margin: 0 auto;
+		}
+		.result thead{
+			text-align: center;
+		}
+		.result tbody td{
+			padding-left: 20%;
 		}
 
 		.buttons {
-
+			position: fixed;
+		}
+		.madeby {
+			position: fixed;
+			bottom: 4px;
+			left: 4px;
+			color: rgba(0,0,0,.38);
+			font-size: 12pt;
 		}
 	</style>
 
@@ -57,63 +76,28 @@
 
 </head>
 <body>
-
-	<script type="text/javascript">
-		// по завершению загрузки страницы
-		$(document).ready(function() {
-			// вешаем на клик по элементу с id = run
-			$('#run').click(function() {
-				var showData = $('#result'),
-					load = $('#load');
-
-				// загрузку JSON данных из файла heroes.json
-				$.getJSON('heroes.json', function(data) {
-					console.log(data);
-
-					// итерация 
-					var items = data.heroes.map(function(item) {
-						return item.name + ': ' + item.episode;
-					});
-
-					// удаление сообщения о загрузке 
-					load.empty();
-
-					// формирование данных
-					if (items.length) {
-						var content = '<tr><td>' + items.join('</td><td>') + '</td></tr>';
-						var list = $('<table />').html(content);
-						showData.append(list);
-					}
-
-
-					// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');
-
-				});
-
-				// сообщение о загрузке
-				load.text('Loading the JSON file.');
-			});
-		});
-	</script>
-
 	<div class="main">
 
 		<h2>Heroes</h2>
+
+		<hr>
 
 		<form>
 			<div class="head">			
 				<input class="formRequest" id="request" placeholder="Text"/>
 				<input class="formButton" type="button" value="GO" id="run" />
-				<div>Stat</div>
+				<span>Stat</span>
 			</div>
 
 			<div id="load"></div>
 
 			<table class="result" id="result">
-				<tr>
-					<td><b>Name</b></td>
-					<td><b>Episodes</b></td>
-				</tr>
+				<thead>
+					<tr>
+						<td><b>Name</b></td>
+						<td><b>Episodes</b></td>
+					</tr>
+				</thead>
 			</table>
 
 			<div class="buttons">
@@ -123,6 +107,8 @@
 
 		</form>
 	</div>
+
+	<span class="madeby">Made by DM</span>
 
 
 
@@ -148,7 +134,58 @@
 
 		};
 
-		
+		// по завершению загрузки страницы
+		$(document).ready(function() {
+			// вешаем на клик по элементу с id = run
+			$('#run').click(function() {
+				var showData = $('#result'),
+					load = $('#load');
+
+				// загрузку JSON данных из файла heroes.json
+				$.getJSON('heroes.json', function(data) {
+					console.log(data);
+
+					// итерация 
+					/*var items = data.heroes.map(function(item) {
+						return item.name + ': ' + item.episode;
+					});
+
+					// удаление сообщения о загрузке 
+					load.empty();
+
+					// формирование данных
+					if (items.length) {
+						var content = '<tr><td>' + items.join('</td><td>') + '</td></tr>';
+						var list = $('<table />').html(content);
+						showData.append(list);
+					}*/
+
+
+					var items = data.heroes.map(function(item) {
+						return '<tr><td>' + item.name + '</td><td>'+ item.episode + '</td></tr>';
+					});
+
+					// удаление сообщения о загрузке 
+					load.empty();
+
+					// формирование данных
+					if (items.length) {
+						// var content =  items.join();
+						// var list = $('<table />').html(content);
+
+						// showData.append(list);
+						showData.append(items.join());
+					}
+
+
+					// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');
+
+				});
+
+				// сообщение о загрузке
+				load.text('Loading the JSON file.');
+			});
+		});		
 	</script>
 </body>
 </html>

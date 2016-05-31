@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Task_3-Form</title>
+	<meta charset="utf-8">
+
+	<style type="text/css">
+		.selected {
+    		background: #4ECEDF;
+    	}
+		li {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+	<div>
+		<p><b>Работа с формами</b></p>
+		<form>
+			<p>
+				Text
+				<input id="text" value="text">
+				Color
+				<input id="color" value="red">
+				Marker
+				<select id="marker">
+					<option value="disc" id="markerLiDisc">disc</option>
+					<option value="square" id="markerLiSquare">square</option>
+					<option value="circle" id="markerLiCircle">circle</option>
+				</select>
+			</p>
+			<p>
+				<input type="button" name="create" value="Create" id="create" >
+				<input type="button" name="change_current" value="Change current" id="change">
+				<input type="button" name="delete_current" value="Delete current" id="delete">
+			</p>
+
+			<ul class="click" id="list">
+				<li id="li1">First</li>
+				<li id="li2">Second</li>
+				<li id="li3">Third</li>
+			</ul>
+		</form>
+	</div>
+	
+	<script type='text/javascript' src="js/actionsOnList.js"></script>
+</body>
+</html>
