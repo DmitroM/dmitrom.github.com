@@ -1,0 +1,6 @@
+0_package_control_loader
+BracketHighlighter
+Color Highlighter
+EditorConfig
+GitGutter
+Package Control

@@ -1,0 +1,122 @@
+body {
+    width: 1000px;
+    margin: 0 auto;
+    background: #e1dfb9;
+}
+
+
+
+/*HEADER*/
+header {
+	/*200/70*/
+	background: #8fa09b;
+	height: 70px;
+}
+header img {
+	float: left; 
+}
+header nav ul {
+	text-align: right;
+	padding: 25px 10px 0 0;
+}
+header nav ul li {
+	display: inline;
+	margin: 0 7px 0 7px;
+}
+header nav ul li a {
+	text-decoration: none;
+	color: black;
+}
+header nav ul li a:hover {
+	text-decoration: none;
+	color: red;
+}
+
+
+/*ARTICLE*/
+article {
+    
+}
+article table {
+	width: 750px;
+	border-collapse: collapse;
+}
+article table td, th {
+	border: 1px solid blue;
+	text-align: center;
+}
+article table th {
+	 background: #b0e0e6;
+}
+
+
+
+
+/*FOOTER*/
+footer {
+	height: 50px;
+	background: #8fa09b;
+}
+footer .copyright {
+	text-align: right;
+	float: right;
+	/*width: 50%;*/
+	margin: 0 1% 0 0;
+}
+footer .nav ul {
+	/*text-align: left;*/
+	padding: 5px 0 5px 5px;
+}
+footer .nav li {
+	display: inline;
+	margin: 0 3px 0 3px;
+}
+footer .nav li a {
+	text-decoration: none;
+	color: black;
+}
+footer .nav li a:hover {
+	text-decoration: none;
+	color: red;
+}
+
+
+
+
+
+.sidebar {
+	/*text-align: center;*/
+	width: 25%;
+	float: left;
+	background: #f0f0f0;  
+}
+.sidebar nav {
+	
+}
+.sidebar nav ul {
+	padding: 0 8px 0 10px;
+}
+.sidebar nav ul li {
+	list-style-type: none;
+	border-bottom: 1px solid blue;	
+}
+.sidebar nav ul li a {
+	display: block;
+	padding: 6px 10px 6px 4px;
+	text-decoration: none;
+	color: black;
+}
+.sidebar nav ul li a:hover {
+	text-decoration: none;
+    background: #9FC7EF;
+    border-radius: 2px;
+}
+
+
+
+.content {
+	/*text-align: center;*/
+	width:  75%;
+	margin-left: 25%;
+	background: #fff;
+}

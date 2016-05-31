@@ -20,20 +20,23 @@
 		.main {
 			background-color: #93C8FF;
 
-			height: 500px;
 			width: 800px;
 			margin: 0 auto;
 
 			border-radius: 5px;
+
+			position: relative;
 		}
 
-		.head {
-			display: inline-block;
-		}
 		h2 {
 			text-align: center;
 		}
 
+		.head {
+			display: inline-block;
+			width: 100%;
+			
+		}
 		.formRequest {
 			margin: 0 10px;
 
@@ -41,7 +44,18 @@
 		}
 		.formButton {
 			width: 40px;
-			height: 30px;
+			height: 35px;
+		}
+		.quantity {
+			text-align: right;
+			float: right;
+
+			margin: 7px 2% 0 0;
+		}
+
+		.load {
+			text-align: center;
+			font-size: 35pt;
 		}
 
 		.result {
@@ -56,8 +70,24 @@
 		}
 
 		.buttons {
-			position: fixed;
+			margin: 5px 7px 20px 7px;
 		}
+		.prevButton {
+			width: 100px;
+			height: 35px;
+
+			font-size: 11pt;
+		}
+		.nextButton {
+			position: absolute;
+			right: 7px;
+
+			width: 70px;
+			height: 35px;
+
+			font-size: 11pt;
+		}
+
 		.madeby {
 			position: fixed;
 			bottom: 4px;
@@ -86,10 +116,10 @@
 			<div class="head">			
 				<input class="formRequest" id="request" placeholder="Text"/>
 				<input class="formButton" type="button" value="GO" id="run" />
-				<span>Stat</span>
+				<p class="quantity" id="quantity"></p>
 			</div>
 
-			<div id="load"></div>
+			<div class="load" id="load"></div>
 
 			<table class="result" id="result">
 				<thead>
@@ -101,8 +131,8 @@
 			</table>
 
 			<div class="buttons">
-				<input type="button" value="< Previous" id="prev" />
-				<input type="button" value="Next >" id="next" />
+				<input type="button" value="← Previous" class="prevButton" id="prev" />
+				<input type="button" value="Next →" class="nextButton" id="next" />
 			</div>
 
 		</form>
@@ -136,51 +166,81 @@
 
 		// по завершению загрузки страницы
 		$(document).ready(function() {
-			// вешаем на клик по элементу с id = run
-			$('#run').click(function() {
-				var showData = $('#result'),
-					load = $('#load');
-
-				// загрузку JSON данных из файла heroes.json
-				$.getJSON('heroes.json', function(data) {
-					console.log(data);
-
-					// итерация 
-					/*var items = data.heroes.map(function(item) {
-						return item.name + ': ' + item.episode;
-					});
-
-					// удаление сообщения о загрузке 
-					load.empty();
-
-					// формирование данных
-					if (items.length) {
-						var content = '<tr><td>' + items.join('</td><td>') + '</td></tr>';
-						var list = $('<table />').html(content);
-						showData.append(list);
-					}*/
+			var showData = $('#result'),
+				load = $('#load'),
+				quantity = $('#quantity'),
+				counterList,
+				nextList = false,
+				prevList = false;
 
 
-					var items = data.heroes.map(function(item) {
-						return '<tr><td>' + item.name + '</td><td>'+ item.episode + '</td></tr>';
-					});
+			// загрузку JSON данных из файла heroes.json
+			$.getJSON('heroes.json', function(data) {
+				console.log(data);
 
-					// удаление сообщения о загрузке 
-					load.empty();
-
-					// формирование данных
-					if (items.length) {
-						// var content =  items.join();
-						// var list = $('<table />').html(content);
-
-						// showData.append(list);
-						showData.append(items.join());
-					}
-
-
-					// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');
-
+				// формирование итерации по данным 
+				var items = data.heroes.map(function(item) {
+					return '<tr><td>' + item.name + '</td><td>'+ item.episode + '</td></tr>';
 				});
+
+				// удаление сообщения о загрузке 
+				load.empty();
+
+				// обновление числа пунктов на странице и всего количества
+				quantity.empty();
+				quantity.append('Show 10 of ' + items.length);
+
+				// формирование и вывод данных
+				if (items.length) {
+					// var content =  items.join();
+					// var list = $('<table />').html(content);
+
+					// showData.append(list);
+
+					// showData.append(items.join());
+
+					// for (var i =  0; i < items.length; i++) {
+						// if (i < 10) {
+							$.each(data.heroes, function(key, value ) {
+								console.log( key + ": " + value.name );
+								while(key < 10){
+									// showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
+									showData.append(items);
+								}
+								
+							});
+						// }
+					// }					
+				}
+
+
+
+				// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');
+
+			});
+
+			// перемотка назад
+			$('#prev').click(function() {
+
+				// сообщение о загрузке
+				load.text('Loading the JSON file.');
+			});
+
+			// перемотка вперед
+			$('#next').click(function() {
+
+				// сообщение о загрузке
+				load.text('Loading the JSON file.');
+			});
+
+
+
+
+			// поиск по запросу
+			$('#run').click(function() {
+				
+
+			
 
 				// сообщение о загрузке
 				load.text('Loading the JSON file.');
