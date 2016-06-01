@@ -101,15 +101,11 @@
 	<!-- <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script> -->
 	<!-- <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script> -->
     <script data-require="jquery@2.1.1" data-semver="1.9.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-
-
 </head>
 <body>
 	<div class="main">
 
 		<h2>Heroes</h2>
-
 		<hr>
 
 		<form>
@@ -137,10 +133,7 @@
 
 		</form>
 	</div>
-
 	<span class="madeby">Made by DM</span>
-
-
 
 
 	<script type="text/javascript">
@@ -168,85 +161,163 @@
 		$(document).ready(function() {
 			var showData = $('#result'),
 				load = $('#load'),
-				quantity = $('#quantity'),
-				counterList,
-				nextList = false,
-				prevList = false;
-
+				quantity = $('#quantity');
 
 			// загрузку JSON данных из файла heroes.json
 			$.getJSON('heroes.json', function(data) {
-				console.log(data);
+				var counterList = 0,
+					firstList = 0,
+					lastList = Math.floor(data.heroes.length / 10);			
 
-				
+				// если список больше 10
+				if (data.heroes.length > 10) {
+					updateContent(counterList);
+				} else {
 
-			// перемотка назад
-			$('#prev').click(function() {
-
-				// сообщение о загрузке
-				load.text('Loading the JSON file.');
-			});
-
-			// перемотка вперед
-			$('#next').click(function() {
-
-				// сообщение о загрузке
-				load.text('Loading the JSON file.');
-			});
-
-
-
-
-			// поиск по запросу
-			$('#run').click(function() {
-				// формирование итерации по данным 
-				var items = data.heroes.map(function(item) {
-					return '<tr><td>' + item.name + '</td><td>'+ item.episode + '</td></tr>';
-				});
-
-				// удаление сообщения о загрузке 
-				load.empty();
-
-				// обновление числа пунктов на странице и всего количества
-				quantity.empty();
-				quantity.append('Show 10 of ' + items.length);
-
-				// формирование и вывод данных
-				if (items.length) {
-					// var content =  items.join();
-					// var list = $('<table />').html(content);
-
-					// showData.append(list);
-
-					// showData.append(items.join());
-
-					// for (var i =  0; i < items.length; i++) {
-						// if (i < 10) {
-							$.each(data.heroes, function(key, value ) {
-								console.log( key + ": " + value.name );
-								// while(key < 10){
-									showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
-									// showData.append(items);
-								// }
-								
-							});
-						// }
-					// }					
 				}
 
+				// перемотка назад
+				$('#prev').click(function() {
+
+					updateContent(counterList--);
+
+					// сообщение о загрузке
+					load.text('Loading the JSON file.');
+
+					// удаление предыдущего списка
+					showData.empty();
+
+					// обновление числа пунктов на странице и всего количества
+					quantity.empty();
+					// проверка на неконец списка
+					if (counterList > 1) {
+						counterList--;
+
+						quantity.append('Show ' + counterList + '0 of ' + data.heroes.length);
+
+						// вывод 
+						$.each(data.heroes, function(key, value) {
+							if (key >= counterList*10 && key < (counterList+1)*10) {
+								showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
+							}						
+						});
+					} else {
+						/*
+						quantity.append('Show ' + (data.heroes.length - counterList * 10) + ' of ' + data.heroes.length);
+
+						// вывод 
+						$.each(data.heroes, function(key, value) {
+							if (key > counterList * 10) {
+								showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
+							}						
+						});
+						*/
+					}
+
+					// удаление сообщения о загрузке 
+					load.empty();
+				});
+
+				// перемотка вперед
+				$('#next').click(function() {
+					updateContent(counterList++);
+				});
+
+				// поиск по запросу
+				$('#run').click(function() {
+					// формирование итерации по данным 
+					// var items = data.heroes.map(function(item) {
+					// 	return '<tr><td>' + item.name + '</td><td>'+ item.episode + '</td></tr>';
+					// });
+
+					// сообщение о загрузке
+					load.text('Loading the JSON file.');
+
+					// обновление числа пунктов на странице и всего количества
+					quantity.empty();
+					// quantity.append('Show 10 of ' + items.length);
+
+					// формирование и вывод данных
+					// if (items.length) {
+						// var content =  items.join();
+						// var list = $('<table />').html(content);
+
+						// showData.append(list);
+
+						// showData.append(items.join());
+
+						// for (var i =  0; i < items.length; i++) {
+							// if (i < 10) {
+								$.each(data.heroes, function(key, value ) {
+									console.log( key + ": " + value.name );
+									// while(key < 10){
+										// showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
+										// showData.append(items);
+									// }
+									
+								});
+							// }
+						// }					
+					// }
+
+					
+
+					// удаление сообщения о загрузке 
+					load.empty();
 
 
-				// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');
+					// $('#result').append('<tr><td>' + data.heroes.name + '</td><td>' + data.heroes.episode + '</td></tr>');	
+				});
 
+
+
+				// обновление содержимого
+				function updateContent(counterList) {
+					// сообщение о загрузке
+					load.text('Loading the JSON file.');
+
+					// удаление предыдущего списка
+					showData.empty();
+					// удаление числа пунктов на странице и всего количества
+					quantity.empty();
+
+					// если первый лист
+					if (counterList == firstList) {				
+						// обновляем количество пунктов на странице
+						quantity.append('Show 1-11 of ' + data.heroes.length);
+
+						// вывод 
+						$.each(data.heroes, function(key, value) {
+							if (key < 10) {
+								showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
+							}						
+						});
+					} 
+
+					// если последний лист
+					if (counterList == lastList) {
+
+					}
+
+					// если промежуточный лист
+					if (counterList > firstList && counterList < lastList) {
+						
+					}
+						quantity.append('Show ' + ((data.heroes.length - counterList - 1) * 10) + ' of ' + data.heroes.length);
+
+						// вывод 
+						$.each(data.heroes, function(key, value) {
+							if (key > (counterList-1) * 10) {
+								showData.append('<tr><td>' + value.name + '</td><td>' + value.episode + '</td></tr>');
+							}						
+						});
+					}										
+
+					// удаление сообщения о загрузке 
+					load.empty();
+				};
 			});
-				
-
-			
-
-				// сообщение о загрузке
-				load.text('Loading the JSON file.');
-			});
-		});		
+		});	
 	</script>
 </body>
 </html>

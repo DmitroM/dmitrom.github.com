@@ -1,0 +1,58 @@
+{
+   "meta": {
+      "from": 0,
+      "length": 34
+   },
+   "data": [
+      {
+         "id": 0,
+         "name": "Tyrion Lannister",
+         "episodes": 56
+      },
+      {
+         "id": 1,
+         "name": "Cersei Lannister",
+         "episodes": 48
+      },
+      {
+         "id": 2,
+         "name": "Jon Snow",
+         "episodes": 46
+      },
+      {
+         "id": 3,
+         "name": "Daenerys Targaryen",
+         "episodes": 44
+      },
+      {
+         "id": 4,
+         "name": "Sansa Stark",
+         "episodes": 44
+      },
+      {
+         "id": 5,
+         "name": "Arya Stark",
+         "episodes": 44
+      },
+      {
+         "id": 6,
+         "name": "Jorah Mormont",
+         "episodes": 41
+      },
+      {
+         "id": 7,
+         "name": "Jaime Lannister",
+         "episodes": 40
+      },
+      {
+         "id": 8,
+         "name": "Samwell Tarly",
+         "episodes": 36
+      },
+      {
+         "id": 9,
+         "name": "Theon Greyjoy",
+         "episodes": 35
+      }
+   ]
+}
