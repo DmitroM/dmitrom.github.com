@@ -1,7 +1,0 @@
-Push.js - решение для создания пуш-уведомлений
-Pavilion - простая и миниатюрная(6kb) CSS-сетка
-
-
-<!-- tl - Tablet Landscape; tp - Tablet Portrait(vertical) -->
-<!-- pl - Phone Landscape; pp - Phone Portrait -->
-<!-- dt - Desktop -->
