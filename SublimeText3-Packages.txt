@@ -1,6 +1,11 @@
 0_package_control_loader
+
 BracketHighlighter
 Color Highlighter
 EditorConfig
+SublimeCodeIntel
 GitGutter
 Package Control
+
+PlainTasks
+
