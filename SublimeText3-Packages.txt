@@ -1,11 +1,18 @@
 0_package_control_loader
+Package Control
 
 BracketHighlighter
 Color Highlighter
-EditorConfig
+ColorPicker
 SublimeCodeIntel
 GitGutter
-Package Control
+AutoFileName
+DocBlockr
+AllAutocomplete
+
+SublimeREPL
+
+EditorConfig
 
 PlainTasks
 
