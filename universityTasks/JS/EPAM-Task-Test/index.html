@@ -46,6 +46,16 @@
 		.element-right {
 			float: right;
 		}
+		.error-label {
+			text-align: center;
+		}
+
+		.off-element {
+			display: none;
+		}
+		.on-element {
+
+		}
 
 		/* Table */
 		.table-caret {
@@ -130,28 +140,34 @@
 						<label for="inputName" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Name:</label>
 						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
 							<input type="text" class="form-control" id="inputNewName" placeholder="Товар №">
+							<p class="bg-danger error-label off-element" id="errorAddName">Incorrect Name</p>
 						</div>
 					</div>
+					<br>
 					<br>
 					<div class="form-group">
 						<label for="inputCount" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Count:</label>
 						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
 							<input type="text" class="form-control" id="inputNewCount" placeholder="1">
+							<p class="bg-danger error-label off-element" id="errorAddCount">Incorrect Count</p>
 						</div>
 					</div>
+					<br>
 					<br>
 					<div class="form-group">
 						<label for="inputPrice" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Price:</label>
 						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 							<input type="text" class="form-control" id="inputNewPrice" placeholder="$12,123,343.25">
+							<p class="bg-danger error-label off-element" id="errorAddPrice">Incorrect Price</p>
 						</div>
 					</div>
+					<br>
 					<br>
 					<br>
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" id="addNewElement">Add</button>
+					<button type="button" class="btn btn-default" id="addNewElement">Add</button>
 					<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -171,6 +187,7 @@
 						<label for="inputName" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Name:</label>
 						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
 							<input type="text" class="form-control" id="inputUpdateName" value="">
+							<p class="bg-danger error-label off-element" id="errorUpdateName">Incorrect Name</p>
 						</div>
 					</div>
 					<br>
@@ -178,6 +195,7 @@
 						<label for="inputCount" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Count:</label>
 						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
 							<input type="text" class="form-control" id="inputUpdateCount" value="">
+							<p class="bg-danger error-label off-element" id="errorUpdateCount">Incorrect Count</p>
 						</div>
 					</div>
 					<br>
@@ -185,6 +203,7 @@
 						<label for="inputPrice" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Price:</label>
 						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 							<input type="text" class="form-control" id="inputUpdatePrice" value="">
+							<p class="bg-danger error-label off-element" id="errorUpdatePrice">Incorrect Price</p>
 						</div>
 					</div>
 					<br>
@@ -302,7 +321,8 @@
 					descendingName = true;
 				}
 
-				var countArr = [];
+				var countArr = [],
+					countArrView = [];
 
 				function compareNumbers(a, b) {
 					return a - b;
@@ -340,8 +360,12 @@
 				// вывод
 				for (var i = 0; i < elementArr.length; i++) {
 					for (var j = 0; j < elementArr.length; j++) {
-						if (countArr[i] == elementArr[j].name) {
+						if ((countArr[i] == elementArr[j].name) && (countArrView[j] != true)) {
 							elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
+
+							countArrView[j] = true;
+
+							break;
 						}
 					}
 				}
@@ -361,6 +385,7 @@
 				}
 				
 				var countArr = [],
+					countArrView = [],
 					tmp;
 
 
@@ -377,7 +402,7 @@
 
 					for (var i = countArr.length - 1; i > 0; i--) {
 						for (var j = 0; j < i; j++) {
-							if (countArr[j] > countArr[j+1]) {
+							if (Number(countArr[j]) > Number(countArr[j+1])) {
 								tmp = countArr[j];
 								countArr[j] = countArr[j+1];
 								countArr[j+1] = tmp;
@@ -391,7 +416,7 @@
 
 					for (var i = countArr.length - 1; i > 0; i--) {
 						for (var j = 0; j < i; j++) {
-							if (countArr[j] < countArr[j+1]) {
+							if (Number(countArr[j]) < Number(countArr[j+1])) {
 								tmp = countArr[j];
 								countArr[j] = countArr[j+1];
 								countArr[j+1] = tmp;
@@ -405,10 +430,14 @@
 				// удаление предыдущего списка
 				showData.empty();
 				// вывод
-				for (var i = 0; i < elementArr.length; i++) {
+				for (var i = 0; i < countArr.length; i++) {
 					for (var j = 0; j < elementArr.length; j++) {
-						if (countArr[i] == elementArr[j].price) {
+						if ((countArr[i] == elementArr[j].price) && (countArrView[j] != true)) {
 							elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
+
+							countArrView[j] = true;
+
+							break;
 						}
 					}
 				}
@@ -419,16 +448,43 @@
 
 			/* Добавление нового элемента */
 			$('#addNewElement').click(function() {
-				var countElement = {
-					"name": $('#inputNewName').val(),
-					"count": $('#inputNewCount').val(),
-					"price": $('#inputNewPrice').val()
-				};
+				var validName = validateName($('#inputNewName').val()),
+					validCount = validateCount($('#inputNewCount').val()),
+					validPrice = validatePrice($('#inputNewPrice').val());
 
-				var product = new elementList(idNumber(), countElement.name, countElement.count, countElement.price);
-				elementArr.push(product);
+				// убрать предыдущие ошибки
+				$('#errorAddName').addClass('off-element');
+				$('#errorAddCount').addClass('off-element');
+				$('#errorAddPrice').addClass('off-element');
 
-				updateContent();
+				$('#addNewElement').removeAttr('data-dismiss');
+
+
+				if (validName && validCount && validPrice) {
+					var countElement = {
+						"name": $('#inputNewName').val(),
+						"count": $('#inputNewCount').val(),
+						"price": $('#inputNewPrice').val()
+					};
+
+					var product = new elementList(idNumber(), countElement.name, countElement.count, countElement.price);
+					elementArr.push(product);
+
+					$('#addNewElement').attr('data-dismiss', 'modal');
+
+					updateContent();
+				}
+
+				// вывод сообщения об ошибке
+				if (!validName) {
+					$('#errorAddName').removeClass('off-element');
+				}
+				if (!validCount) {
+					$('#errorAddCount').removeClass('off-element');
+				}
+				if (!validPrice) {
+					$('#errorAddPrice').removeClass('off-element');
+				}
 			});
 
 
@@ -446,12 +502,12 @@
 					// изменение товара
 					
 					// добавление в поля форм данных текущего элемента
-					$('#inputUpdateName').val("ABC");
-					$('#inputUpdateCount').val("ABC");
-					$('#inputUpdatePrice').val("ABC");
+					$('#inputUpdateName').val(elementArr[numberElement].name);
+					$('#inputUpdateCount').val(elementArr[numberElement].count);
+					$('#inputUpdatePrice').val(elementArr[numberElement].price);
 
 
-					
+										
 				} else {
 					// удаление
 					
@@ -463,11 +519,38 @@
 			});
 			// обновление списка(на правку)
 			$('#updateElement').click(function() {
-				elementArr[numberElement].name = $('#inputUpdateName').val();
-				elementArr[numberElement].count = $('#inputUpdateCount').val();
-				elementArr[numberElement].price = $('#inputUpdatePrice').val();
+				var validName = validateName($('#inputUpdateName').val()),
+					validCount = validateCount($('#inputUpdateCount').val()),
+					validPrice = validatePrice($('#inputUpdatePrice').val());
 
-				updateContent();
+				// убрать предыдущие ошибки
+				$('#errorUpdateName').addClass('off-element');
+				$('#errorUpdateCount').addClass('off-element');
+				$('#errorUpdatePrice').addClass('off-element');
+
+				$('#updateElement').removeAttr('data-dismiss');
+
+
+				if (validName && validCount && validPrice) {
+					elementArr[numberElement].name = $('#inputUpdateName').val();
+					elementArr[numberElement].count = $('#inputUpdateCount').val();
+					elementArr[numberElement].price = $('#inputUpdatePrice').val();
+
+					$('#updateElement').attr('data-dismiss', 'modal');
+
+					updateContent();
+				}
+
+				// вывод сообщения об ошибке
+				if (!validName) {
+					$('#errorUpdateName').removeClass('off-element');
+				}
+				if (!validCount) {
+					$('#errorUpdateCount').removeClass('off-element');
+				}
+				if (!validPrice) {
+					$('#errorUpdatePrice').removeClass('off-element');
+				}
 			});
 			// обновление списка(на удаление)
 			$('#deleteElement').click(function() {
@@ -505,6 +588,8 @@
 				}
 				// удаление сообщения о загрузке 
 				load.empty();
+
+				console.log(elementArr);
 			};
 
 			/* Счеткик элеменетов */
@@ -519,8 +604,8 @@
 					+ name 
 					+ '<span class="table-count">' 
 					+ count 
-					+ '</span></td><td>' 
-					+ price 
+					+ '</span></td><td>$ ' 
+					+ priceFormat(price) 
 					+ '</td><td class="table-actions"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEdite" id="'
 					+ id
 					+ 'Edite">Edite</button><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalDelete" id="'
@@ -529,22 +614,93 @@
 			};
 
 			/* Проверка данных */
-			// function () {};
+			function validateName(name) {
+				var count = 0;
 
-			/* Удаление элемента из массива со смещением */
-			// function deleteElementArr(index) {
-			// 	for (var i = index; i < elementArr.length-1; i++) {
-			// 		elementArr[i] = elementArr[i+1];
-			// 	}
+				if (name.length > 15) {
+					return false;
+				}
+				if (name == '') {
+					return false;
+				}
+				for (var i = 0; i < name.length; i++) {
+					if (name[i] == ' ') {
+						count++;
+					}
+				}
+				if (count == name.length) {
+					return false;
+				}
 
-			// 	delete elementArr[elementArr.length-1];
-			// 	// elementArr.splice(elementArr.length-1, 1);
+				return true;
+			};
+			function validateCount(count) {
+				var tmp = 0;
+
+				if (count == '') {
+					return false;
+				}
+				if (isNaN(count)) {
+					return false;
+				}
+				if (count < 0) {
+					return false;
+				}
+				for (var i = 0; i < count.length; i++) {
+					if (count[i] == ' ') {
+						tmp++;
+					}
+				}
+				if (tmp == count.length) {
+					return false;
+				}
+
+				return true;
+			};
+			function validatePrice(price) {
+				var count = 0;
+
+				if (isNaN(price)) {
+					return false;
+				}
+				if (price == '') {
+					return false;
+				}
+				if (price < 0) {
+					return false;
+				}
+				for (var i = 0; i < price.length; i++) {
+					if (price[i] == ' ') {
+						count++;
+					}
+				}
+				if (count == price.length) {
+					return false;
+				}
+
+				return true;
+			};
+
+			/* Вывод форматированной цены */
+			function priceFormat(price) {
 				
-			// 	elementArr.length--;
+				// целое ли число
+				if (price.indexOf('.') == -1) {
+					price += ".00"
+				} else {
+					if (price.length - price.indexOf('.') > 2) {
+						price = price.substr(0, price.indexOf('.')+3)
+					} else {
+						price += '0';
+					}
+				}
 
-			// 	// console.log(elementArr);
-			// };
+				for (var i = price.length-6; i >= 1; i-=3) {
+					price = price.substr(0, i) + ',' + price.substr(i);
+				}
 
+				return price;
+			};
 		});
 
 	/*
@@ -555,8 +711,6 @@
 	* 4. маленькая чувствительная часть у карретки для сортировок
 	* 5. размещение модального окна ровно по центру экрана 
 	* 6. игнорировать пробелы вначале и в конце в поисковых запросах
-	* 7. неправильная работа сортировки цены
-	* 8. 
 	*/
 	</script>
 </body>
