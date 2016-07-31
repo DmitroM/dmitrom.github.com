@@ -23,7 +23,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 	<!-- Local bootstrap -->
 	<!-- <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"> -->
 	<!-- <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"> -->
@@ -51,6 +50,9 @@
 		/* Table */
 		.table-caret {
 			cursor: pointer;
+		}
+		.table-caret-reversed {
+			
 		}
 		.table-count {
 			float: right;
@@ -101,8 +103,8 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<td> Name <span class="caret table-caret" id="sortName"></span></td>
-					<td> Price <span class="caret table-caret" id="sortPrice"></span></td>
+					<td> Name <span class="" id="nameCaretReversed"><span class="caret table-caret" id="sortName"></span></span></td>
+					<td> Price <span class="" id="priceCaretReversed"><span class="caret table-caret" id="sortPrice"></span></span></td>
 					<td> Actions </td>
 				</tr>
 			</thead>
@@ -125,21 +127,31 @@
 
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="inputName">Name:</label>
-						<input type="text" class="form-control" id="exampleInputName" placeholder="Товар №">
+						<label for="inputName" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Name:</label>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
+							<input type="text" class="form-control" id="inputNewName" placeholder="Товар №">
+						</div>
 					</div>
+					<br>
 					<div class="form-group">
-						<label for="inputCount">Count:</label>
-						<input type="text" class="form-control" id="exampleInputCount" placeholder="1">
+						<label for="inputCount" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Count:</label>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
+							<input type="text" class="form-control" id="inputNewCount" placeholder="1">
+						</div>
 					</div>
+					<br>
 					<div class="form-group">
-						<label for="inputPrice">Price:</label>
-						<input type="text" class="form-control" id="exampleInputPrice" placeholder="$12,123,343.25">
+						<label for="inputPrice" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Price:</label>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+							<input type="text" class="form-control" id="inputNewPrice" placeholder="$12,123,343.25">
+						</div>
 					</div>
+					<br>
+					<br>
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Add/Update</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="addNewElement">Add</button>
 					<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
@@ -151,18 +163,37 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+					<h4 class="modal-title" id="modalLabelUpdate">Update</h4>
 				</div>
 
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="exampleInputEmail1">Are you sure you want to perform this action?</label>
+						<label for="inputName" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Name:</label>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
+							<input type="text" class="form-control" id="inputUpdateName" value="">
+						</div>
 					</div>
+					<br>
+					<div class="form-group">
+						<label for="inputCount" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Count:</label>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 top-UI">
+							<input type="text" class="form-control" id="inputUpdateCount" value="">
+						</div>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="inputPrice" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Price:</label>
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+							<input type="text" class="form-control" id="inputUpdatePrice" value="">
+						</div>
+					</div>
+					<br>
+					<br>
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-					<button type="button" class="btn btn-primary">No</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="updateElement">Update</button>
+					<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
 				</div>
 			</div>
 		</div>
@@ -172,19 +203,19 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-					<h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="labelDelete">Delete</h4>
 				</div>
 
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="exampleInputEmail1">Are you sure you want to perform this action?</label>
+						<label >Are you sure you want to perform this action?</label>
 					</div>
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-					<button type="button" class="btn btn-primary">No</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="deleteElement">Yes</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 				</div>
 			</div>
 		</div>
@@ -202,6 +233,16 @@
 
 			var elementArr = [];
 
+			var ascendingName = false,
+				descendingName = true;
+			var ascendingPrice = false,
+				descendingPrice = true;
+
+			var countElementsOfArr = 0;
+
+			var idElement,
+				numberElement;
+
 
 			// class element
 			function elementList(id, name, count, price) {
@@ -216,104 +257,307 @@
 				console.log("count:", this.count);
 				console.log("price:", this.price);
 			};
-				
-
-			// загрузку JSON данных из файла listOfProducts.json
-			$.getJSON('listOfProducts.json', function(data) {
-				var ascendingName = false,
-					descendingName = true;
-
-				var ascendingPrice = false,
-					descendingPrice = true;
-
-				var countElementsOfArr = 0;
-				
-				
-				// выводим список товаров
-				updateContent();
 
 
-				/* Поиск по запросу */
-				$('#buttonSearch').click(function() {
-					var request = $('#inputSearch').val();
-					console.log(request);
-
-					// формирование и вывод данных
-					updateContent(request);
-				});
-
-
-				/* Сортировка по имени */
-				$('#sortName').click(function() {
-					console.log("name");
-				});
-
-
-				/* Сортировка по цене */
-				$('#sortPrice').click(function() {
-					if (descendingPrice) {
-						ascendingPrice = true;
-						descendingPrice = false;
-					} else {
-						ascendingPrice = false,
-						descendingPrice = true;
-					}
-					
-
-
-				});
-
-
-				/* Обновление содержимого */
-				function updateContent(request) {
-					// сообщение о загрузке
-					load.text('Loading...');
-					// удаление предыдущего списка
-					showData.empty();
-					// вывод списка
+			/* Загрузка и инициализация товаров */
+			(function() {
+				// загрузку JSON данных из файла listOfProducts.json и инициализация массива объектами(элементами списка)
+				$.getJSON('listOfProducts.json', function(data) {
 					$.each(data.products, function(key, value) {
-						if (request == '' || request == undefined) {
-							showData.append('<tr><td>' 
-								+ value.name 
-								+ '<span class="table-count">' 
-								+ value.count 
-								+ '</span></td><td>' 
-								+ value.price 
-								+ '</td><td class="table-actions" id="action"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEdite">Edite</button>	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalDelete">Delete</button></td></tr>');
+						var idProduct = idNumber();
+						// вывод в таблицу
+						elementContent(value.name, value.count, value.price, idProduct);
 
-							var product = new elementList(idNumber(), value.name, value.count, value.price);
-							elementArr.push(product);
-						} else {
-							if (value.name == request) {
-							showData.append('<tr><td>' 
-								+ value.name 
-								+ '<span class="table-count">' 
-								+ value.count 
-								+ '</span></td><td>' 
-								+ value.price 
-								+ '</td><td class="table-actions" id="action"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEdite">Edite</button>	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalDelete">Delete</button></td></tr>');
+						// создание объекта элемента списка и добавление в массив
+						var product = new elementList(idProduct, value.name, value.count, value.price);
+						// добавление в массив
+						elementArr.push(product);
+					});
+				});
+				// выводим/обновляем список товаров
+				// updateContent();
+			})();
+			
+			
+			/* 
+			* 	Events 	*
+			* 			*/
+
+			/* Поиск по запросу */
+			$('#buttonSearch').click(function() {
+				var request = $('#inputSearch').val();
+
+				// формирование и вывод данных
+				updateContent(request);
+			});
+
+
+			/* Сортировка по имени */
+			$('#sortName').click(function() {
+				if (descendingName) {
+					ascendingName = true;
+					descendingName = false;
+				} else {
+					ascendingName = false,
+					descendingName = true;
+				}
+
+				var countArr = [];
+
+				function compareNumbers(a, b) {
+					return a - b;
+				}
+
+
+				// копируем массив
+				for (var i = 0; i < elementArr.length; i++) {
+					countArr[i] = elementArr[i].name;
+				}
+
+				// сортируем
+				// по возрастанию
+				if (ascendingName) {
+					// изменение положение каретки 
+					$('#nameCaretReversed').addClass("dropup");
+
+					countArr.sort();
+
+				// по убыванию
+				} else {
+					// изменение положение каретки 
+					$('#nameCaretReversed').removeClass("dropup");
+
+					countArr.sort(function (a, b) {
+						return b.localeCompare(a);
+					});
+
+				}
+
+				// сообщение о загрузке
+				load.text('Loading...');
+				// удаление предыдущего списка
+				showData.empty();
+				// вывод
+				for (var i = 0; i < elementArr.length; i++) {
+					for (var j = 0; j < elementArr.length; j++) {
+						if (countArr[i] == elementArr[j].name) {
+							elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
+						}
+					}
+				}
+				// удаление сообщения о загрузке 
+				load.empty();
+			});
+
+
+			/* Сортировка по цене */
+			$('#sortPrice').click(function() {
+				if (descendingPrice) {
+					ascendingPrice = true;
+					descendingPrice = false;
+				} else {
+					ascendingPrice = false,
+					descendingPrice = true;
+				}
+				
+				var countArr = [],
+					tmp;
+
+
+				// копируем массив
+				for (var i = 0; i < elementArr.length; i++) {
+					countArr[i] = elementArr[i].price;
+				}
+
+				// сортируем
+				// по возрастанию
+				if (ascendingPrice) {
+					// изменение положение каретки 
+					$('#priceCaretReversed').addClass("dropup");
+
+					for (var i = countArr.length - 1; i > 0; i--) {
+						for (var j = 0; j < i; j++) {
+							if (countArr[j] > countArr[j+1]) {
+								tmp = countArr[j];
+								countArr[j] = countArr[j+1];
+								countArr[j+1] = tmp;
 							}
 						}
-					});
-					// удаление сообщения о загрузке 
-					load.empty();
+					}
+				// по убыванию
+				} else {
+					// изменение положение каретки 
+					$('#priceCaretReversed').removeClass("dropup");
 
-					console.log(elementArr);
-				};
+					for (var i = countArr.length - 1; i > 0; i--) {
+						for (var j = 0; j < i; j++) {
+							if (countArr[j] < countArr[j+1]) {
+								tmp = countArr[j];
+								countArr[j] = countArr[j+1];
+								countArr[j+1] = tmp;
+							}
+						}
+					}
+				}
 
-				/* счеткик элеменетов */
-				function idNumber() {
-					countElementsOfArr++;
-					return "id"+countElementsOfArr; 
-				};
-
-				/* Элемент таблицы */
-				function elementContent() {
-
-				};
-
+				// сообщение о загрузке
+				load.text('Loading...');
+				// удаление предыдущего списка
+				showData.empty();
+				// вывод
+				for (var i = 0; i < elementArr.length; i++) {
+					for (var j = 0; j < elementArr.length; j++) {
+						if (countArr[i] == elementArr[j].price) {
+							elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
+						}
+					}
+				}
+				// удаление сообщения о загрузке 
+				load.empty();
 			});
+
+
+			/* Добавление нового элемента */
+			$('#addNewElement').click(function() {
+				var countElement = {
+					"name": $('#inputNewName').val(),
+					"count": $('#inputNewCount').val(),
+					"price": $('#inputNewPrice').val()
+				};
+
+				var product = new elementList(idNumber(), countElement.name, countElement.count, countElement.price);
+				elementArr.push(product);
+
+				updateContent();
+			});
+
+
+			/* Изменение и Удаление выбранного элемента */
+			$('#result').click(function(elem) {
+				idElement = elem.target.id;
+				for (var i = 0; i < elementArr.length; i++) {
+					if (elementArr[i].id[2] == idElement[2]) {
+						numberElement = i;
+						break;
+					}
+				}
+
+				if (idElement[3] == 'E') {
+					// изменение товара
+					
+					// добавление в поля форм данных текущего элемента
+					$('#inputUpdateName').val("ABC");
+					$('#inputUpdateCount').val("ABC");
+					$('#inputUpdatePrice').val("ABC");
+
+
+					
+				} else {
+					// удаление
+					
+					// сообщение о названии удаляемого продукта
+					// $('#labelDelete').val($('#labelDelete').val() + " " + elementArr[numberElement].name);
+					
+					
+				}
+			});
+			// обновление списка(на правку)
+			$('#updateElement').click(function() {
+				elementArr[numberElement].name = $('#inputUpdateName').val();
+				elementArr[numberElement].count = $('#inputUpdateCount').val();
+				elementArr[numberElement].price = $('#inputUpdatePrice').val();
+
+				updateContent();
+			});
+			// обновление списка(на удаление)
+			$('#deleteElement').click(function() {
+				elementArr.splice(numberElement, 1);
+				// delete elementArr[numberElement];
+				// deleteElementArr(numberElement);
+
+				updateContent();
+			});
+
+
+			/* 
+			* Utilities *
+			* 			*/
+
+			/* Обновление содержимого списка и вывод */
+			function updateContent(request) {
+				// сообщение о загрузке
+				load.text('Loading...');
+				// удаление предыдущего списка
+				showData.empty();
+				// вывод списка
+				for (var i = 0; i < elementArr.length; i++) {
+					// первая загрузка или пустой поиск - вывод полного списка
+					if (request == '' || request == undefined) {
+						// вывод 
+						elementContent(elementArr[i].name, elementArr[i].count, elementArr[i].price, elementArr[i].id);
+
+					} else {
+						// вывод элементов списка по поисковому запросу
+						if (elementArr[i].name == request) {
+							elementContent(elementArr[i].name, elementArr[i].count, elementArr[i].price, elementArr[i].id);
+						}
+					}
+				}
+				// удаление сообщения о загрузке 
+				load.empty();
+			};
+
+			/* Счеткик элеменетов */
+			function idNumber() {
+				countElementsOfArr++;
+				return "id"+countElementsOfArr; 
+			};
+
+			/* Элемент таблицы */
+			function elementContent(name, count, price, id) {
+				showData.append('<tr><td>' 
+					+ name 
+					+ '<span class="table-count">' 
+					+ count 
+					+ '</span></td><td>' 
+					+ price 
+					+ '</td><td class="table-actions"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalEdite" id="'
+					+ id
+					+ 'Edite">Edite</button><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalDelete" id="'
+					+ id
+					+'Delete">Delete</button></td></tr>');
+			};
+
+			/* Проверка данных */
+			// function () {};
+
+			/* Удаление элемента из массива со смещением */
+			// function deleteElementArr(index) {
+			// 	for (var i = index; i < elementArr.length-1; i++) {
+			// 		elementArr[i] = elementArr[i+1];
+			// 	}
+
+			// 	delete elementArr[elementArr.length-1];
+			// 	// elementArr.splice(elementArr.length-1, 1);
+				
+			// 	elementArr.length--;
+
+			// 	// console.log(elementArr);
+			// };
+
 		});
+
+	/*
+	* баги:
+	* 1. при сортировки выдаются все товары, даже если стоит поисковой запрос
+	* 2. не регистро независимый поис
+	* 3. по нажатию на энтер можно запустить поиск, т.е. и без кнопки search
+	* 4. маленькая чувствительная часть у карретки для сортировок
+	* 5. размещение модального окна ровно по центру экрана 
+	* 6. игнорировать пробелы вначале и в конце в поисковых запросах
+	* 7. неправильная работа сортировки цены
+	* 8. 
+	*/
 	</script>
 </body>
 </html>
