@@ -363,12 +363,20 @@
 				for (var i = 0; i < elementArr.length; i++) {
 					for (var j = 0; j < elementArr.length; j++) {
 						if ((countArr[i] == elementArr[j].name) && (countArrView[j] != true)) {
-							if (elementArr[j].name.toLowerCase().indexOf(request.toLowerCase()) > -1) {
+							if (request == '' || request == undefined) {
 								elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
 
 								countArrView[j] = true;
 
 								break;
+							} else {
+								if (elementArr[j].name.toLowerCase().indexOf(request.toLowerCase()) > -1) {
+									elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
+
+									countArrView[j] = true;
+
+									break;
+								} 
 							}
 						}
 					}
@@ -437,12 +445,20 @@
 				for (var i = 0; i < countArr.length; i++) {
 					for (var j = 0; j < elementArr.length; j++) {
 						if ((countArr[i] == elementArr[j].price) && (countArrView[j] != true)) {
-							if (elementArr[j].name.toLowerCase().indexOf(request.toLowerCase()) > -1) {
+							if (request == '' || request == undefined) {
 								elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
 
 								countArrView[j] = true;
 
 								break;
+							} else {
+								if (elementArr[j].name.toLowerCase().indexOf(request.toLowerCase()) > -1) {
+									elementContent(elementArr[j].name, elementArr[j].count, elementArr[j].price);
+
+									countArrView[j] = true;
+
+									break;
+								}
 							}
 						}
 					}
