@@ -1,7 +1,8 @@
 /* Variable definition */
 /* Pen's SCSS */
 body {
-  background: white url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86637/sky.jpeg) no-repeat center 0%/cover;
+  /*background: white url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86637/sky.jpeg) no-repeat center 0%/cover;*/
+  background: white url(https://pbs.twimg.com/media/CqAl1hPWgAAD8Pq.jpg) no-repeat center 0%/cover;
   -webkit-transition: background-position .3s ease-in-out;
   transition: background-position .3s ease-in-out;
 }
@@ -17,14 +18,15 @@ body.fp-viewing-2 {
 
 .one,
 .three {
-  background: -webkit-linear-gradient(135deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
-  background: linear-gradient(-45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
+  /*background: -webkit-linear-gradient(135deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
+  background: linear-gradient(-45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);*/
+  background: #F15152;
 }
 
 .two {
-  background: -webkit-linear-gradient(45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
+  /*background: -webkit-linear-gradient(45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
   background: linear-gradient(45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
-  text-align: right;
+  text-align: right;*/
 }
 
 h1,
