@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+	<title>Level1</title>
+
+	<style type="text/css">
+		.game {
+			width: 375px;
+			height: 617px;
+		}
+
+		/*.game:active { 
+			cursor: pointer;
+			cursor: -webkit-grabbing;
+		}*/
+	</style>
+
+	<!-- <script src="matter.js" type="text/javascript"></script> -->
+</head>
+<body>
+
+	<div class="game" id="game"></div>
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.10.0/matter.js'></script>
+	<script type="text/javascript">
+		(function() {
+var Game = document.getElementById('game');
+
+// module aliases
+var Engine = Matter.Engine,
+	World = Matter.World,
+	Body = Matter.Body,
+	Bodies = Matter.Bodies,
+	// Common = Matter.Common,
+	// Constraint = Matter.Constraint,
+	// Composites = Matter.Composites,
+	// Contact = Matter.Contact,
+	// Detector = Matter.Detector,
+	MouseConstraint = Matter.MouseConstraint,
+	Events = Matter.Events;
+
+var engine,
+	render,
+	width,
+	height;
+
+// create an engine
+engine = Engine.create(Game, {
+	render: {
+		options: {
+			width: 375,
+			height: 617,
+			
+			background: '#052332',
+			// background: rgba(255, 255, 255, 0),
+
+			// наличие опознавателей на объектах
+			showAngleIndicator: false,
+
+			// возможность менять цвета и фоны
+			wireframes: false
+		}
+	}
+});
+
+// gravity init
+engine.world.gravity.x = 0;
+engine.world.gravity.y = 0;
+
+// add a mouse controlled constraint
+var mouseConstraint = MouseConstraint.create(engine);
+World.add(engine.world, mouseConstraint);
+
+
+var defaultCategory = 0x0001,
+	target = 0x0002;
+var triangleA = Bodies.polygon(60, 200, 3, 35, { 
+		isStatic: true,
+		angle: 40,
+		collisionFilter: {
+			category: target
+		},
+		render: {
+			fillStyle: '#00abff' 
+		}
+	});
+var triangleB = Bodies.polygon(200, 50, 3, 35, {
+		isStatic: true,
+		collisionFilter: {
+			category: target
+		},
+		render: {
+			fillStyle: '#00abff'
+		}
+	});
+var groundButton = Bodies.rectangle(187, 617, 375, 1, { isStatic: true }),
+	groundTop = Bodies.rectangle(187, 0, 375, 1, { isStatic: true }),
+	groundLeft = Bodies.rectangle(0, 308, 1, 617, { isStatic: true }),
+	groundRight = Bodies.rectangle(375, 308, 1, 617, { isStatic: true });
+// add of the bodies to the world
+World.add(engine.world, [triangleA, triangleB, groundButton, groundTop, groundLeft, groundRight]);
+
+
+var circle = Bodies.circle(187, 550, 30, {
+	// плотность
+	density: 0.0005,
+
+	// трение о воздух
+	frictionAir: 0.034,
+
+	// отталкивание
+	restitution: 1.3,
+
+	// трение
+	friction: 0.01,
+
+	slop: 0.5,
+
+	collisionFilter: {
+		mask: defaultCategory | target
+	},
+
+	// отрисовка
+	render: {
+		fillStyle: '#00abff',
+		sprite: {
+
+		}
+	}
+});
+// add unit to the world
+World.add(engine.world, circle);
+
+
+
+Engine.run(engine);
+
+Events.on(engine, 'collisionStart', endGame);
+
+function endGame() {
+	console.log("position X " + circle.position.x);
+	console.log("position Y " + circle.position.y);
+
+	deadX = circle.position.x;
+	deadY = circle.position.y;
+
+	dead = true;
+
+	var animation = document.getElementById("animation");
+	// animation.className = "animation dimensions";
+	// animation.classList.add("dimensions");
+	animation.classList.remove("off");
+};
+
+
+		})();
+	</script>
+</body>
+</html>

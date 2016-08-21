@@ -1,0 +1,96 @@
+/* Variable definition */
+/* Pen's SCSS */
+body {
+  /*background: white url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/86637/sky.jpeg) no-repeat center 0%/cover;*/
+  /*background: white url(https://pbs.twimg.com/media/CqAl1hPWgAAD8Pq.jpg) no-repeat center 0%/cover;*/
+  -webkit-transition: background-position .3s ease-in-out;
+  transition: background-position .3s ease-in-out;
+}
+body.fp-viewing-0 {
+  background-position: center 0%;
+}
+body.fp-viewing-1 {
+  background-position: center 50%;
+}
+body.fp-viewing-2 {
+  background-position: center 100%;
+}
+
+.one {
+  background: #F15152;
+  text-align: center;
+}
+.two {
+  /*background: -webkit-linear-gradient(45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
+  background: linear-gradient(45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
+  text-align: right;*/
+  background: #F15152;
+}
+.three {
+  /*background: -webkit-linear-gradient(135deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);
+  background: linear-gradient(-45deg, transparent 25%, #F15152 25%, #F15152 75%, transparent 75%, transparent 100%);*/
+  /*background: #F15152;*/
+  background: #F15152;
+}
+.four {
+  background: #F15152;
+}
+
+h1,
+h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 58px;
+  max-width: 830px;
+  padding: 0 15px;
+  margin: 0 auto;
+  height: 64px;
+  overflow: hidden;
+  line-height: 3.5;
+  -webkit-transition: line-height 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: line-height 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+h1 {
+  font-weight: 100;
+  -webkit-transition-delay: .3s;
+          transition-delay: .3s;
+}
+
+h2 {
+  margin-top: -6px;
+  font-weight: 300;
+  -webkit-transition-delay: .8s;
+          transition-delay: .8s;
+}
+
+.one h1 {
+  font-size: 112px;
+  height: 100px;
+}
+.three p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 58px;
+  max-width: 830px;
+  padding: 0 15px;
+  margin: 0 auto;
+
+  overflow: hidden;
+  /*line-height: 3.5;*/
+
+  /*height: 165px;*/
+
+/*  -webkit-transition: line-height 0.85s cubic-bezier(1.677, 0, 0.775, 1);
+          transition: line-height 0.85s cubic-bezier(1.677, 0, 0.775, 1);
+
+  -webkit-transition-delay: .8s;
+          transition-delay: .8s;*/
+}
+.four h2 {
+  height: 300px;
+}
+
+
+.section.active h1,
+.section.active h2 {
+  line-height: 1;
+}

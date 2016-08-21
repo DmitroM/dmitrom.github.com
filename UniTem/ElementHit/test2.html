@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body {
+			height: 154px;
+		}
+
+		.div1 {
+			/*background-color: green;*/
+
+			position: absolute;
+
+			/*z-index: 1;*/
+		}	
+		.div1 canvas {
+			background-color: green;
+		}
+		
+		.div2 {
+			/*background-color: yellow;*/
+
+			position: relative;
+			/*top: -154px;*/
+			top: 0;
+
+			/*z-index: 0;*/
+		}
+		.div2 canvas {
+			background-color: yellow;
+		}
+		.off {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="div1">
+		<canvas></canvas>
+	</div>
+	<div class="div2">
+		<canvas></canvas>
+	</div>
+
+	<input type="submit" name="button" id="run" value="Run">
+
+	<script type="text/javascript">
+		window.onload = function() {
+			var run = document.getElementById("run");
+
+			run.addEventListener("click", start);
+
+			function start() {
+				console.log("+");
+			}
+		};
+	</script>
+
+</body>
+</html>
