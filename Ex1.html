@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ex_1</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div>
+		<h2>Задание 1</h2>
+		<p>Некий текст должен быть спрятан в другом тексте. Скрываемый текст должен вводиться из файла. Есть текст и в нем надо скрыть  некоторую фразу, состоящую из букв. Текст скрываемой фразы представляем в двоичном виде. Текст, в котором будет прятаться сообщение, должен быть многострочном. Скрытие производится по следующему правилу: если очередной бит скрываемой информации равен единице, то в конец очередной строки текста-контейнера дописываем пробел. Реализовать кодирование/декодирование сохраненного в файле текста.</p>
+	</div>
+	<hr>
+	<div id="ex_1">
+		<table>
+			<tr>
+				<td>
+					<h3>Coding</h3>
+					<input type="text" id="inputHiddenText" placeholder="HiddenText">
+					<input type="submit" id="runCoding" value="Go!">
+					<input type="checkbox" id="checkDisplayHiddenText">Display
+					<span id="error"></span>
+					<br>
+					<br>
+					<textarea id="output" cols="80" rows="40">
+	Задача организации, в особенности же сложившаяся структура организации способствует подготовки и реализации позиций, занимаемых участниками в отношении поставленных задач. Задача организации, в особенности же дальнейшее развитие различных форм деятельности играет важную роль в формировании модели развития. Задача организации, в особенности же начало повседневной работы по формированию позиции способствует подготовки и реализации позиций, занимаемых участниками в отношении поставленных задач. Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение позиций, занимаемых участниками в отношении поставленных задач. С другой стороны начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки системы обучения кадров, соответствует насущным потребностям.</textarea>
+				</td>
+
+				<td>
+					<h3>Decoding</h3>
+					<input type="submit" id="runDecoding" value="Go!"> HiddenText: 
+					<span id="outputHiddenText"></span>
+					<br>
+					<br>
+					<textarea id="input" cols="80" rows="40" placeholder="InputText"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+<script type="text/javascript">
+	window.onload = function() {
+		var $runButtonCoding = document.getElementById("runCoding"),
+			$runButtonDecoding = document.getElementById("runDecoding");
+
+		// Run Coding!
+		$runButtonCoding.addEventListener("click", runCoding);
+
+		// Run Decoding!
+		$runButtonDecoding.addEventListener("click", runDecoding);
+
+
+		function runCoding() {
+			var $hiddenTextToString = document.getElementById("inputHiddenText").value,
+				$hiddenTextToBinary = convertStringToBinary($hiddenTextToString),
+
+				$checkDisplayHiddenText = document.getElementById("checkDisplayHiddenText"),
+
+				$correctTextElement = document.getElementById("output"),
+				$correctTextToString = $correctTextElement.innerHTML,
+				$correctTextToArray = $correctTextToString.split(' '),
+
+				$newTextToString = $correctTextToString,
+				$newTextToArray = $correctTextToArray;			
+
+			// HiddenText < CorrectText
+			if ($hiddenTextToBinary.length * 16 < $correctTextToArray.length) {
+				for (var i = 0; i < $hiddenTextToBinary.length; i++) {
+					var element = $hiddenTextToBinary[i];
+					for (var j = 0; j < $hiddenTextToBinary[i].length; j++) {
+						if (element[j] == 1) {
+							if ($checkDisplayHiddenText.checked) {
+								$newTextToArray[i*16+j] += '_';
+							} else {
+								$newTextToArray[i*16+j] += ' ';
+							}					
+						}
+					}
+				}
+
+				document.getElementById('error').innerText = "";
+			} else {
+				document.getElementById('error').innerText = "Text is too small";
+			}
+
+			console.log($hiddenTextToBinary);
+
+			$correctTextElement.value = $newTextToArray.join(' ');
+		};
+
+
+		function runDecoding() {
+			var $hiddenTextToElement = document.getElementById("outputHiddenText"),
+				$hiddenTextToBinary = [],
+				$hiddenTextToString,
+
+				$inputTextElement = document.getElementById("input"),
+				$inputTextToString = $inputTextElement.value,
+				$inputTextToArray = $inputTextToString.split(' ');
+
+			var element = "",
+				count = 0;
+			for (var i = 0; i < $inputTextToArray.length; i++) {
+				if ($inputTextToArray[i] == '') {
+					element = element.substring(0, element.length - 1);
+					element += '1';
+				} else {
+					element += '0';
+					count++;
+				}	
+
+				if (count == 16) {
+					if ($inputTextToArray[i+1] == '') {
+						element = element.substring(0, element.length - 1);
+						element += '1';
+						i++;
+					}
+
+					$hiddenTextToBinary.push(element);
+					element = "";
+					count = 0;
+				}
+			}
+
+			$hiddenTextToString = convertBinaryToString($hiddenTextToBinary);
+
+			$hiddenTextToElement.innerText = $hiddenTextToString;
+		};
+
+
+		// convert string to binary
+		function convertStringToBinary(input) {
+			var output = [];
+
+			for (var i = 0; i < input.length; i++) {
+				var count = input[i].charCodeAt(0).toString(2);
+				if (count.length == 16) {
+					output.push(count);
+				} else {
+					while (count.length != 16) {
+						count = '0' + count;
+					}
+					output.push(count);
+				}
+			}
+
+			return output;
+		};
+
+		// convert binary to string
+		function convertBinaryToString(input) {
+			var output = [];
+
+			for (var i = 0; i < input.length; i++) {
+				output.push(String.fromCharCode(parseInt(input[i], 2)));
+			}
+
+			return output.join(" ");
+		};
+	};
+</script>
+</body>
+</html>
